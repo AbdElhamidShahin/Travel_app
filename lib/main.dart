@@ -1,16 +1,12 @@
+import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tourism_app/HomePage.dart';
-import 'package:tourism_app/Wedget/Buttom_Nav_Bar.dart';
-
-import 'Wedget/Favorite_Item.dart';
+import 'model/itemProvider.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => Like()), // توفير الكائن Like
-      ],
+    ChangeNotifierProvider(
+      create: (context) => ItemProvider(),
       child: MyApp(),
     ),
   );
@@ -19,17 +15,53 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: const Color.fromRGBO(
+            255, 241, 242, 1), // Setting the background color
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0.0,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         useMaterial3: true,
       ),
-      home: BottomNavigationBarExample(),
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFF0F4F8),
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.white),
+          elevation: 0.0,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+          backgroundColor: Colors.black,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.black,
+          elevation: 20.0,
+          selectedItemColor: Colors.amber,
+          selectedIconTheme: IconThemeData(color: Colors.amber),
+        ),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
     );
   }
 }
