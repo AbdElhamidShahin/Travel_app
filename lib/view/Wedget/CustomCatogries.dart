@@ -1,7 +1,6 @@
+import 'package:Tourism_app/view/Wedget/IconfavoriteItem.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../model/articalmodel.dart';
-import '../../model/itemProvider.dart';
 import 'CustomDetails.dart';
 
 class CustomCategories extends StatefulWidget {
@@ -14,7 +13,7 @@ class CustomCategories extends StatefulWidget {
 }
 
 class _CustomCategoriesState extends State<CustomCategories> {
-  final bool _isFavorite = true;
+  bool isFavorite = false; // لتتبع حالة الأيقونة
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,6 @@ class _CustomCategoriesState extends State<CustomCategories> {
         }
       },
       child: Container(
-
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
@@ -57,35 +55,45 @@ class _CustomCategoriesState extends State<CustomCategories> {
           child: Column(
             children: [
               ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image(
-                    image: NetworkImage(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6V_E6ThV08we20soq56PpokNlZHsy3XRgTA&s",
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      child: Image(
+                        image: AssetImage(
+                          widget.travel!.image,
+                        ),
+                      ),
                     ),
-
-                  )),
+                    Iconfavoriteitem(travel: widget.travel), // تمرير travel هنا
+                  ],
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
                     Text(
-                      widget.travel!.name,
-                      style: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.w500),
+                      widget.travel != null ? widget.travel!.name : 'غير متوفر',
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500),
                     ),
-                    Spacer(),
-                    Image(
+                    const Spacer(),
+                    const Image(
                       image: AssetImage('assets/imagesFood/star.png'),
                       height: 25,
                       width: 25,
                     ),
                     Text(
-                      widget.travel!.rating,
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      widget.travel != null ? widget.travel!.rating : '0',
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ],
                 ),
               ),
-              Row(
+              const Row(
                 children: [
                   Icon(
                     Icons.location_on_outlined,
@@ -98,16 +106,14 @@ class _CustomCategoriesState extends State<CustomCategories> {
                   Spacer(),
                   Text(
                     '/Person',
-                    style: TextStyle(color: Colors.grey,fontSize: 14),
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                 ],
-              ),
-            ],
+              ), ],
           ),
         ),
       ),
     );
-
-
   }
 }
+

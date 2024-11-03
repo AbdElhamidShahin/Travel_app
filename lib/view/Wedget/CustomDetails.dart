@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../model/articalmodel.dart';
-
+import 'IconfavoriteItem.dart';
 
 class CustomDetails extends StatefulWidget {
   final Travel? travel;
@@ -15,6 +14,8 @@ class CustomDetails extends StatefulWidget {
   State<CustomDetails> createState() => _CustomDetailsState();
 }
 
+bool isFavorite = false; // لتتبع حالة الأيقونة
+
 class _CustomDetailsState extends State<CustomDetails> {
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,11 @@ class _CustomDetailsState extends State<CustomDetails> {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   CustomDetails(travel: widget.travel),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
                 var sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-                  CurvedAnimation(parent: animation, curve: Curves.easeInOutCubic),
+                  CurvedAnimation(
+                      parent: animation, curve: Curves.easeInOutCubic),
                 );
 
                 return SizeTransition(
@@ -51,24 +54,41 @@ class _CustomDetailsState extends State<CustomDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(16), top: Radius.circular(16)),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.45,
-                    width: double.infinity,
-                    child: Hero(
-                      tag: "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8fDA%3D",
-                      child: Image.network(
-                        "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG91c2V8ZW58MHx8MHx8fDA%3D",
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Center(child: CircularProgressIndicator());
-                        },
+                Stack(children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(16), top: Radius.circular(16)),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.45,
+                      width: double.infinity,
+                      child: Hero(
+                        tag: widget.travel!.image,
+                        child: Image.asset(
+                          widget.travel!.image,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFC8B9A4),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Iconfavoriteitem(
+                        travel: widget.travel,
+                      ),
+                    ),
+                  ),
+
+                ]),
                 const SizedBox(height: 20),
                 Row(
                   children: [
@@ -90,17 +110,17 @@ class _CustomDetailsState extends State<CustomDetails> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const  Row(
+                const Row(
                   children: [
-                     Text(
+                    Text(
                       "Egypt",
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                     Spacer(),
-                     Text(
+                    Spacer(),
+                    Text(
                       'Per Person',
                       style: TextStyle(
                           color: Colors.grey,
@@ -156,7 +176,7 @@ class _CustomDetailsState extends State<CustomDetails> {
                     ),
                     const Spacer(),
                     const Image(
-                      image:  AssetImage('assets/imagesFood/star.png'),
+                      image: AssetImage('assets/imagesFood/star.png'),
                       height: 35,
                       width: 35,
                     ),

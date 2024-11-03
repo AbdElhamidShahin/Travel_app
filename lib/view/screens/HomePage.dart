@@ -10,11 +10,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => FoodCubit(),
-      child: BlocConsumer<FoodCubit, FoodState>(
+      create: (BuildContext context) => RecipeCubit(),
+      child: BlocConsumer<RecipeCubit,RecipeState>(
         listener: (BuildContext context, state) {},
         builder: (context, state) {
-          var cubit = FoodCubit.get(context);
+          var cubit = RecipeCubit.get(context);
 
           return Scaffold(
             body: cubit.screens[cubit.currentIndex],  // يعرض الشاشة بناءً على الفهرس الحالي

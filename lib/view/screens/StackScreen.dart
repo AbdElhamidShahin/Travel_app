@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../Wedget/CustomCatogries.dart';
 
-
 class StacksScreen extends StatelessWidget {
   final String category;
 
@@ -50,7 +49,6 @@ class StacksScreen extends StatelessWidget {
                     },
                   ),
                 ),
-
 
                 // Padding(
                 //   padding: const EdgeInsets.symmetric(horizontal: 20),

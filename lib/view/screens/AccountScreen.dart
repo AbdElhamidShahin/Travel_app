@@ -8,105 +8,33 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 241, 242, 1),
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Settings",
-              style: TextStyle(fontSize: 36),
+        title: const Text('TabBar Sample'),
+        bottom: const TabBar(
+          tabs: <Widget>[
+            Tab(
+              icon: Icon(Icons.cloud_outlined),
             ),
-            const SizedBox(
-              height: 50,
+            Tab(
+              icon: Icon(Icons.beach_access_sharp),
             ),
-            const Text(
-              'Account',
-              style: TextStyle(fontSize: 30),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Row(
-                  children: [
-                    const Image(
-                      image: AssetImage(
-                          'assets/food/Drinks/istockphoto-1495088043-612x612.png'),
-                      width: 70,
-                      height: 70,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    const Column(
-                      children: [
-                        Text(
-                          'abdo@gmail.com',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          'info',
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
-                        )
-                      ],
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const Text(
-              'Settings',
-              style: TextStyle(fontSize: 30),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const CustomIconSettings(
-              text: 'Language',
-              image: 'assets/food/settings/earth.png',
-              icon: Icons.arrow_forward_ios,
-            ),
-            const CustomIconSettings(
-              text: 'Notificathon',
-              image: 'assets/food/settings/bell.png',
-              icon: Icons.arrow_forward_ios,
-            ),
-            const CustomIconSettings(
-              text: 'Dark Mode ',
-              image: 'assets/food/settings/user-interface.png',
-              icon: Icons.arrow_forward_ios,
-            ),
-            const CustomIconSettings(
-              text: 'Help',
-              image: 'assets/food/settings/support.png',
-              icon: Icons.arrow_forward_ios,
+            Tab(
+              icon: Icon(Icons.brightness_5_sharp),
             ),
           ],
         ),
+      ),
+      body: const TabBarView(
+        children: <Widget>[
+          Center(
+            child: Text("It's cloudy here"),
+          ),
+          Center(
+            child: Text("It's rainy here"),
+          ),
+          Center(
+            child: Text("It's sunny here"),
+          ),
+        ],
       ),
     );
   }

@@ -19,9 +19,15 @@ class Loginscreen extends StatelessWidget {
           children: [
             // الصورة الخلفية الثابتة
             Positioned.fill(
-              child: Image.asset(
-                'assets/imagesFood/img1.wallspic.com-food-blue-recipe-fluid-cooking-1421x3000.jpg',
-                fit: BoxFit.cover,
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5), // تعديل الشفافية هنا
+                  BlendMode.darken,
+                ),
+                child: Image.asset(
+                  'assets/food/293364-wallpaper-1080-2280.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
 
@@ -128,7 +134,7 @@ class Loginscreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),

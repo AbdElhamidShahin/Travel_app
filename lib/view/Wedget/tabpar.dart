@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../VeiwModel/SearchScrenn.dart';
 import '../../model/ImageUpper.dart';
 import '../screens/StackScreen.dart';
 
@@ -32,27 +33,29 @@ class _TabBarPageState extends State<TabBarPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(0.0),
             child: Row(
               children: [
+
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Hello,Jayson",
+                      "  Hello,Jayson",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+
+
                       children: [
                         Icon(Icons.location_on_outlined),
                         Text(
                           'Cairo, Egypt',
                           style: TextStyle(color: Colors.grey, fontSize: 22),
-                        )
+                        ),
                       ],
                     )
                   ],
@@ -70,7 +73,9 @@ class _TabBarPageState extends State<TabBarPage>
                     ),
                   ),
                 ),
-                SizedBox(width: 8,),
+                SizedBox(
+                  width: 8,
+                ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image(
@@ -107,13 +112,19 @@ class _TabBarPageState extends State<TabBarPage>
                   fontStyle: FontStyle.italic,
                 ),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Search()),
+                );
+              },
             ),
           ),
 
           const SizedBox(height: 16),
 
-          SizedBox(
-            width: double.infinity,
+          Container(
+            alignment: Alignment.centerLeft,
             child: TabBar(
               dividerHeight: 0,
               controller: _tabController,
@@ -125,28 +136,28 @@ class _TabBarPageState extends State<TabBarPage>
               tabs: [
                 Tab(
                   child: ImageUpper(
-                    image: 'Images/Desert.png',
+                    image: 'assets/travel/Images/Desert.png',
                     text: 'diner',
                     isSelected: _tabController.index == 0,
                   ),
                 ),
                 Tab(
                   child: ImageUpper(
-                    image: 'Images/Mountains.jpeg',
+                    image: 'assets/travel/Images/download.jpeg',
                     text: 'breakfast',
                     isSelected: _tabController.index == 1,
                   ),
                 ),
                 Tab(
                   child: ImageUpper(
-                    image: 'Images/download.jpeg',
+                    image: 'assets/travel/Images/Lake.jpeg',
                     text: 'desserts',
                     isSelected: _tabController.index == 2,
                   ),
                 ),
                 Tab(
                   child: ImageUpper(
-                    image: 'Images/Lake.jpeg',
+                    image: 'assets/travel/Images/Lake.jpeg',
                     text: 'SeaFood',
                     isSelected: _tabController.index == 3,
                   ),
