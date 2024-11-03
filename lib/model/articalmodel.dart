@@ -2,77 +2,58 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-class Recipe {
-  final int id;
+class Travel {
   final String name;
   final String description;
-  final String imageUrl;
-  final List<String> ingredients;
-  final List<String> steps;
-  final Nutrition? nutrition;
+  final String image;
+  final String address;
+  final String rating;
+  final String working_hours;
+  final String price;
+
   bool isFavorite;
 
-  Recipe({
-    required this.id,
+  Travel({
     required this.name,
     required this.description,
-    required this.imageUrl,
-    required this.ingredients,
-    required this.steps,
-    this.nutrition,
     required this.isFavorite,
-
+    required this.image,
+    required this.address,
+    required this.working_hours,
+    required this.price,
+    required this.rating,
   });
 
-  factory Recipe.fromJson(Map<String, dynamic> json) {
-    return Recipe(
-      id: int.tryParse(json['id'].toString()) ?? 0,
+  factory Travel.fromJson(Map<String, dynamic> json) {
+    return Travel(
       name: json['name'] as String? ?? 'وصفة غير معروفة',
       description: json['description'] as String? ?? 'لا تتوفر وصفة.',
-      imageUrl: json['imageUrl'] as String? ?? 'assets/images/default.png',
-      ingredients: List<String>.from(json['ingredients'] ?? []),
-      steps: List<String>.from(json['steps'] ?? []),
-      nutrition: json['nutrition'] != null ? Nutrition.fromJson(json['nutrition']) : null,
-      isFavorite: json['isFavorite'] ??
-          false,
+      image: json['image'] as String? ?? 'assets/images/default.png',
+      address: json['address'] as String? ?? 'وصفة غير معروفة',
+      working_hours: json['working_hours'] as String? ?? 'لا تتوفر وصفة.',
+      price: json['price'] as String? ?? 'assets/images/default.png',
+      rating: json["rating"] as String? ?? "rating",
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
-      'imageUrl': imageUrl,
-      'ingredients': ingredients,
-      'steps': steps,
+      'image': image,
+      'address': address,
+      'working_hours': working_hours,
+      'price': price,
+      'rating': rating,
     };
   }
 }
 
-class Nutrition {
-  final int calories;
-  final int protein;
-  final int prepTime;
-
-  Nutrition({
-    required this.calories,
-    required this.protein,
-    required this.prepTime,
-  });
-
-  factory Nutrition.fromJson(Map<String, dynamic> json) {
-    return Nutrition(
-      calories: json['calories'] as int? ?? 0,
-      protein: json['protein'] as int? ?? 0,
-      prepTime: json['prepTime'] as int? ?? 0,
-    );
-  }
-}
-
 // دالة لتحميل البيانات من JSON
-Future<List<Recipe>> fetchRecipes() async {
-  final String response = await rootBundle.loadString('assets/recipes.json');
+Future<List<Travel>> fetchRecipes() async {
+  final String response =
+      await rootBundle.loadString('assets/json/travel.json');
   final data = json.decode(response) as List<dynamic>;
 
-  return data.map((json) => Recipe.fromJson(json)).toList();
+  return data.map((json) => Travel.fromJson(json)).toList();
 }

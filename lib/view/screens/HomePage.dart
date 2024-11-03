@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
             body: cubit.screens[cubit.currentIndex],  // يعرض الشاشة بناءً على الفهرس الحالي
             bottomNavigationBar: Container(
               height: 70,
-              margin: EdgeInsets.all(0),  // إضافة مسافة حول الشريط السفلي
+              margin: const EdgeInsets.all(0),  // إضافة مسافة حول الشريط السفلي
               decoration: BoxDecoration(
                 color: Colors.black54,  // لون خلفية الشريط
                 borderRadius: BorderRadius.circular(30),  // جعل الزوايا مستديرة

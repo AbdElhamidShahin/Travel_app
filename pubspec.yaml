@@ -72,15 +72,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/imagesFood/
-    - assets/TabBar_Image/
     - assets/images/
-    - assets/TabBar_Image/
     - assets/food/deserts/
-    - assets/food/BreakFast/
-    - assets/food/Drinks/
-    - assets/food/SeaFood/
     - assets/food/settings/
     - assets/food/
+    - assets/Tourism/desert/
+    - assets/json/travel.json
+
 
     - assets/Recipe/recipe.json
 

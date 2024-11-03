@@ -4,21 +4,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'articalmodel.dart';
 
 class ItemProvider with ChangeNotifier {
-  List<Recipe> _items = [];
+  List<Travel> _items = [];
 
   ItemProvider() {
     _loadItems();
   }
 
-  List<Recipe> get items => _items;
+  List<Travel> get items => _items;
 
-  void addItem(Recipe item) {
+  void addItem(Travel item) {
     _items.add(item);
     _saveItems();
     notifyListeners();
   }
 
-  void removeItem(Recipe item) {
+  void removeItem(Travel item) {
     _items.remove(item);
     _saveItems();
     notifyListeners();
@@ -35,7 +35,7 @@ class ItemProvider with ChangeNotifier {
     final data = prefs.getString('favorite_items');
     if (data != null) {
       final List<dynamic> json = jsonDecode(data);
-      _items = json.map((e) => Recipe.fromJson(e)).toList();
+      _items = json.map((e) => Travel.fromJson(e)).toList();
       notifyListeners();
     }
   }

@@ -43,15 +43,16 @@ class Loginscreen extends StatelessWidget {
                         'Time to cook, let\'s Sign in',
                         style: TextStyle(color: Colors.grey, fontSize: 18),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Customtextfeild(
                         validator: (value) {
                           if (RegExp(emailRegex).hasMatch(value!)) {
-                          } else if (value == null || value.isEmpty) {
+                          } else if (value.isEmpty) {
                             return "@gmail.com";
                           } else {
                             return "@gmail.com";
                           }
+                          return null;
                         },
                         hintText: 'Email',
                         lableText: 'Email',
@@ -76,7 +77,7 @@ class Loginscreen extends StatelessWidget {
                           style: TextStyle(color: Colors.amber, fontSize: 16),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: 300,
                         height: 55,

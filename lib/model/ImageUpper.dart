@@ -15,7 +15,7 @@ class ImageUpper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: isSelected ? Colors.black : Colors.grey[300],

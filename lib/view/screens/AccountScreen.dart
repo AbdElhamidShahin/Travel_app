@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class Settings extends StatelessWidget {
@@ -12,7 +13,7 @@ class Settings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
           ),
         ),
       ),
@@ -21,11 +22,11 @@ class Settings extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Settings",
               style: TextStyle(fontSize: 36),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             const Text(
@@ -44,7 +45,7 @@ class Settings extends StatelessWidget {
                       width: 70,
                       height: 70,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
                     const Column(
@@ -59,7 +60,7 @@ class Settings extends StatelessWidget {
                         )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: Container(
@@ -69,7 +70,7 @@ class Settings extends StatelessWidget {
                         ),
                         child: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.arrow_forward_ios),
+                          icon: const Icon(Icons.arrow_forward_ios),
                         ),
                       ),
                     )
@@ -77,29 +78,29 @@ class Settings extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               'Settings',
               style: TextStyle(fontSize: 30),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            CustomIconSettings(
+            const CustomIconSettings(
               text: 'Language',
               image: 'assets/food/settings/earth.png',
               icon: Icons.arrow_forward_ios,
             ),
-            CustomIconSettings(
+            const CustomIconSettings(
               text: 'Notificathon',
               image: 'assets/food/settings/bell.png',
               icon: Icons.arrow_forward_ios,
             ),
-            CustomIconSettings(
+            const CustomIconSettings(
               text: 'Dark Mode ',
               image: 'assets/food/settings/user-interface.png',
               icon: Icons.arrow_forward_ios,
             ),
-            CustomIconSettings(
+            const CustomIconSettings(
               text: 'Help',
               image: 'assets/food/settings/support.png',
               icon: Icons.arrow_forward_ios,
@@ -130,18 +131,18 @@ class CustomIconSettings extends StatelessWidget {
             width: 40,
             height: 40,
           ),
-          SizedBox(
+          const SizedBox(
             width: 6,
           ),
           Column(
             children: [
               Text(
                 text,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(3.0),
             child: Container(

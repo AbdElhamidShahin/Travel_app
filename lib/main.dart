@@ -7,7 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => ItemProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF0F4F8),
+        scaffoldBackgroundColor: const Color(0x0ff0f4f8),
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.white),
           elevation: 0.0,

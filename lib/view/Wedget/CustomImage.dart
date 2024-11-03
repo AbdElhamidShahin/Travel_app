@@ -24,7 +24,7 @@ class CustomImage extends StatelessWidget {
               text,
               style: const TextStyle(fontSize: 13, color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               width: 50,
             ),
           ],

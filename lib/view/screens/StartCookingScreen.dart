@@ -6,13 +6,11 @@ import '../Wedget/IconText_CustomDetails.dart';
 import '../Wedget/Ingredients_Screen.dart';
 
 class StartCookingScreen extends StatefulWidget {
-  final Recipe? recipe;
-  final Nutrition? nutrition;
+  final Travel? travel;
 
   const StartCookingScreen({
     super.key,
-    required this.recipe,
-    this.nutrition,
+    required this.travel,
   });
 
   @override
@@ -31,7 +29,7 @@ class _StartCookingScreenState extends State<StartCookingScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     )..repeat(); // Repeats the animation indefinitely
 
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
@@ -51,7 +49,7 @@ class _StartCookingScreenState extends State<StartCookingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(42, 45, 52, 1),
+      backgroundColor: const Color.fromRGBO(42, 45, 52, 1),
       body: Stack(
         children: [
           Positioned(
@@ -64,83 +62,83 @@ class _StartCookingScreenState extends State<StartCookingScreen>
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Text(
-                      widget.recipe?.name ?? '',
-                      style: TextStyle(
+                      widget.travel?.name ?? '',
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Center(
                       child: Text(
-                        widget.recipe?.description ?? '',
-                        style: TextStyle(
+                        widget.travel?.description ?? '',
+                        style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w300,
                             color: Colors.black54),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        IconText(
-                          text: "${widget.recipe?.nutrition?.calories} Kcal",
-                          image: 'assets/imagesFood/22.png',
-                        ),
-                        Spacer(),
-                        IconText(
-                          text: "${widget.recipe?.nutrition?.calories} Fats",
-                          image: 'assets/food/high-fat-food-rgb-color-icon-vector-37009941.png',
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconText(
-                          text: "${widget.recipe?.nutrition?.calories} Carbs",
-                          image: 'assets/food/wheat-icon-wheat-logo-illustration-isolated-on-white-background-editable-stroke-free-vector.png',
-                        ),
-                        Spacer(),
-                        IconText(
-                          text: "${widget.recipe?.nutrition?.protein} Protein",
-                          image: 'assets/food/381007.png',
-                        ),
-                      ],
-                    ),
-                    Text(
+                    const SizedBox(height: 20),
+                    // Row(
+                    //   children: [
+                    //     IconText(
+                    //       text: "${widget.recipe?.nutrition?.calories} Kcal",
+                    //       image: 'assets/imagesFood/22.png',
+                    //     ),
+                    //     const Spacer(),
+                    //     IconText(
+                    //       text: "${widget.recipe?.nutrition?.calories} Fats",
+                    //       image: 'assets/food/high-fat-food-rgb-color-icon-vector-37009941.png',
+                    //     ),
+                    //   ],
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: [
+                    //     IconText(
+                    //       text: "${widget.recipe?.nutrition?.calories} Carbs",
+                    //       image: 'assets/food/wheat-icon-wheat-logo-illustration-isolated-on-white-background-editable-stroke-free-vector.png',
+                    //     ),
+                    //     const Spacer(),
+                    //     IconText(
+                    //       text: "${widget.recipe?.nutrition?.protein} Protein",
+                    //       image: 'assets/food/381007.png',
+                    //     ),
+                    //   ],
+                    // ),
+                    const Text(
                       "Steps",
                       style: TextStyle(
                           fontSize: 26, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
-                    if (widget.recipe?.steps != null &&
-                        widget.recipe!.steps!.isNotEmpty)
-                      Container(
-                        height: 200,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: widget.recipe!.steps.map((steps) {
-                              return Ingredients(
-                                text1: steps,
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      )
-                    else
-                      Text(
-                        "لا توجد مكونات متاحة",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                      ),
-                    SizedBox(height: 20),
+                    // const SizedBox(height: 10),
+                    // if (widget.recipe?.steps != null &&
+                    //     widget.recipe!.steps.isNotEmpty)
+                    //   SizedBox(
+                    //     height: 200,
+                    //     child: SingleChildScrollView(
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: widget.recipe!.steps.map((steps) {
+                    //           return Ingredients(
+                    //             text1: steps,
+                    //           );
+                    //         }).toList(),
+                    //       ),
+                    //     ),
+                    //   )
+                    // else
+                    //   Text(
+                    //     "لا توجد مكونات متاحة",
+                    //     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    //   ),
+                    // const SizedBox(height: 20),
 
                     // Enhanced animation with rotation, scaling, and color change
                     ElevatedButton(
@@ -149,12 +147,12 @@ class _StartCookingScreenState extends State<StartCookingScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "End Recipe",
                           style: TextStyle(
@@ -175,14 +173,14 @@ class _StartCookingScreenState extends State<StartCookingScreen>
             bottom: 600,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Container(
+              child: SizedBox(
                 height: 100,
                 width: double.infinity,
                 child: Hero(
-                  tag: widget.recipe?.imageUrl ?? 'default-hero',
+                  tag: widget.travel?.image ?? 'default-hero',
 
                   child: Image.asset(
-                    widget.recipe?.imageUrl ?? 'assets/imagesFood/download.png',
+                    widget.travel?.image ?? 'assets/imagesFood/download.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(

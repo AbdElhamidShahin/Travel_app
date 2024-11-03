@@ -3,11 +3,14 @@ import '../../model/ImageUpper.dart';
 import '../screens/StackScreen.dart';
 
 class TabBarPage extends StatefulWidget {
+  const TabBarPage({super.key});
+
   @override
   _TabBarPageState createState() => _TabBarPageState();
 }
 
-class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateMixin {
+class _TabBarPageState extends State<TabBarPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -28,25 +31,61 @@ class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateM
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
-
-
-
-          Row(
-            children: [
-              Column(
-                children: [
-                  Text("Hello,Jayson",style: TextStyle(color: Colors.black),),
-                  Icon(Icons.location_on_outlined)
-                ,
-
-                ],
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "Hello,Jayson",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.location_on_outlined),
+                        Text(
+                          'Cairo, Egypt',
+                          style: TextStyle(color: Colors.grey, fontSize: 22),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications_none,
+                      size: 24,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8,),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image(
+                    image: NetworkImage(
+                        "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png"),
+                    width: 50,
+                    height: 50,
+                  ),
+                )
+              ],
+            ),
           ),
           // استخدام TextField كبديل لشريط البحث
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -62,7 +101,7 @@ class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateM
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Discover your place',
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 hintStyle: TextStyle(
                   color: Colors.grey[400],
                   fontStyle: FontStyle.italic,
@@ -71,8 +110,7 @@ class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateM
             ),
           ),
 
-
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
           SizedBox(
             width: double.infinity,
@@ -80,7 +118,7 @@ class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateM
               dividerHeight: 0,
               controller: _tabController,
               isScrollable: true,
-              indicator: BoxDecoration(
+              indicator: const BoxDecoration(
                 color: Colors.transparent,
               ),
               labelPadding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -116,7 +154,7 @@ class _TabBarPageState extends State<TabBarPage> with SingleTickerProviderStateM
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Text(

@@ -25,10 +25,10 @@ class Customtextfeild extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           labelText: lableText,
-          labelStyle: TextStyle(color: Colors.grey),
+          labelStyle: const TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(color: Colors.amber),
+            borderSide: const BorderSide(color: Colors.amber),
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.amber, width: 2.0),

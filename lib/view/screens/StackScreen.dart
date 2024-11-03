@@ -1,36 +1,39 @@
+import 'dart:convert';
+import 'package:Tourism_app/model/JsonScrren.dart';
+import 'package:Tourism_app/model/articalmodel.dart';
+import 'package:Tourism_app/view/Wedget/CustomCutogarisDoun.dart';
 import 'package:flutter/material.dart';
-import '../../model/JsonScrren.dart';
-import '../../model/articalmodel.dart';
+import 'package:flutter/services.dart';
 import '../Wedget/CustomCatogries.dart';
-import '../Wedget/CustomCutogarisDoun.dart';
+
 
 class StacksScreen extends StatelessWidget {
   final String category;
 
-  StacksScreen({super.key, required this.category});
+  const StacksScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, List<Recipe>>>(
-      future: fetchRecipeFromJson(context),
+    return FutureBuilder<List<Travel>>(
+      future: fetchTravelFromJson(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No recipes found'));
+          return const Center(child: Text('No travel packages found'));
         }
 
-        final items = snapshot.data![category] ?? [];
+        final items = snapshot.data!;
 
         return Scaffold(
           body: SingleChildScrollView(
-            // إضافة SingleChildScrollView هنا
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.27,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.32,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: items.length,
@@ -38,33 +41,33 @@ class StacksScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: SizedBox(
-                          width: 200,
+                          width: 250,
                           child: CustomCategories(
-                            recipe: items[index],
+                            travel: items[index],
                           ),
                         ),
                       );
                     },
                   ),
                 ),
-                Text(
-                  'Tour Packages',
-                  style: TextStyle(color: Colors.black),
-                ),
-                Container(
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(), // منع التمرير هنا
-                    shrinkWrap: true, // حجم شبكة التبويب يتناسب مع المحتوى
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Customcutogarisdoun(
-                          recipe: items[index],
-                        ),
-                      );
-                    },
-                  ),
+
+
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                //   child:  Text(
+                //     'Tour Packages',
+                //     style: TextStyle(color: Colors.black, fontSize: 24,fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return Customcutogarisdoun(
+                      travel: items[index],
+                    );
+                  },
                 ),
               ],
             ),

@@ -4,7 +4,7 @@ class IconText extends StatelessWidget {
   final String image;
   final String text;
 
-  IconText({required this.image, required this.text});
+  const IconText({super.key, required this.image, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class IconText extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Image.asset(image),
             height: 50,
             width: 50,
+            child: Image.asset(image),
           ),
           const SizedBox(width: 4),
           Text(text, style: const TextStyle(fontSize: 16)),
