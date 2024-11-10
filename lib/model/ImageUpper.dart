@@ -19,12 +19,12 @@ class ImageUpper extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: isSelected ? Colors.black : Colors.grey[300],
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(80),
       ),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 25,
+            radius: 20,
             backgroundColor: Colors.transparent,
             backgroundImage: AssetImage(image),
           ),

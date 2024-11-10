@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../model/articalmodel.dart';
 import 'IconfavoriteItem.dart';
 
-class CustomDetails extends StatefulWidget {
+class CustomDetails extends StatelessWidget {
   final Travel? travel;
 
   const CustomDetails({
@@ -11,21 +11,14 @@ class CustomDetails extends StatefulWidget {
   });
 
   @override
-  State<CustomDetails> createState() => _CustomDetailsState();
-}
-
-bool isFavorite = false; // لتتبع حالة الأيقونة
-
-class _CustomDetailsState extends State<CustomDetails> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.travel != null) {
+        if (travel != null) {
           Navigator.of(context).push(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  CustomDetails(travel: widget.travel),
+                  CustomDetails(travel: travel),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 var sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -62,9 +55,9 @@ class _CustomDetailsState extends State<CustomDetails> {
                       height: MediaQuery.of(context).size.height * 0.45,
                       width: double.infinity,
                       child: Hero(
-                        tag: widget.travel!.image,
+                        tag: travel!.image,
                         child: Image.asset(
-                          widget.travel!.image,
+                          travel!.image,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return const Center(
@@ -74,26 +67,54 @@ class _CustomDetailsState extends State<CustomDetails> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFC8B9A4),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Iconfavoriteitem(
-                        travel: widget.travel,
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    size: 22,
+                                    color: Colors.white,
+                                  ))),
+                        ),
                       ),
-                    ),
-                  ),
-
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
+                            child: Iconfavoriteitem(
+                              travel: travel,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ]),
                 const SizedBox(height: 20),
                 Row(
                   children: [
                     Text(
-                      widget.travel?.name ?? '',
+                      travel?.name ?? '',
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 28,
@@ -147,7 +168,7 @@ class _CustomDetailsState extends State<CustomDetails> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      widget.travel?.address ?? '',
+                      travel?.address ?? '',
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -168,7 +189,7 @@ class _CustomDetailsState extends State<CustomDetails> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      widget.travel?.working_hours ?? '',
+                      travel?.working_hours ?? '',
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -181,7 +202,7 @@ class _CustomDetailsState extends State<CustomDetails> {
                       width: 35,
                     ),
                     Text(
-                      widget.travel?.rating ?? '',
+                      travel?.rating ?? '',
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -199,7 +220,7 @@ class _CustomDetailsState extends State<CustomDetails> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  widget.travel?.description ?? '',
+                  travel?.description ?? '',
                   style: const TextStyle(color: Colors.grey, fontSize: 18),
                 ),
                 const SizedBox(height: 20),

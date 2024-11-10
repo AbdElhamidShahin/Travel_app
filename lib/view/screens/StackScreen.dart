@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'package:Tourism_app/model/JsonScrren.dart';
 import 'package:Tourism_app/model/articalmodel.dart';
-import 'package:Tourism_app/view/Wedget/CustomCutogarisDoun.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../Wedget/CustomCatogries.dart';
 
 class StacksScreen extends StatelessWidget {
@@ -14,7 +11,7 @@ class StacksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Travel>>(
-      future: fetchTravelFromJson(context),
+      future: fetchTravelFromJson(context,category),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -32,40 +29,29 @@ class StacksScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.32,
+                  height: MediaQuery.of(context).size.height * 0.29,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.only(top: 12,bottom: 0,left: 12,right: 12),
                         child: SizedBox(
                           width: 250,
-                          child: CustomCategories(
-                            travel: items[index],
+
+                          child: Column(
+                            children: [
+                              CustomCategories(
+                                travel: items[index],
+                              ),
+
+
+                            ],
                           ),
                         ),
                       );
                     },
                   ),
-                ),
-
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child:  Text(
-                //     'Tour Packages',
-                //     style: TextStyle(color: Colors.black, fontSize: 24,fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return Customcutogarisdoun(
-                      travel: items[index],
-                    );
-                  },
                 ),
               ],
             ),

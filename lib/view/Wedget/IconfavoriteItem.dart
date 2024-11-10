@@ -23,34 +23,30 @@ class _IconfavoriteitemState extends State<Iconfavoriteitem> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: InkWell(
-        onTap: () {
-          if (widget.travel != null) {
-            Provider.of<ItemProvider>(context, listen: false)
-                .addItem(widget.travel!);
-            setState(() {
-              isFavorite = !isFavorite; // تغيير الحالة عند الضغط
-            });
-          }
-        },
-        child: Container(
-          padding: EdgeInsets.all(12), // لزيادة المساحة حول الأيقونة
-          child: Icon(
-            Icons.favorite_outlined,
-            size: 30,
-            color: isFavorite
-                ? Colors.red
-                : Colors.transparent, // تغيير اللون بناءً على الحالة
-            shadows: [
-              BoxShadow(
-                color: Colors.white, // لون الحواف
-                blurRadius: 3.0, // لتنعيم الحواف
-                spreadRadius: 1.0, // لتوسيع الحواف
-              ),
-            ],
-          ),
+    return InkWell(
+      onTap: () {
+        if (widget.travel != null) {
+          Provider.of<ItemProvider>(context, listen: false)
+              .addItem(widget.travel!);
+          setState(() {
+            isFavorite = !isFavorite; // تغيير الحالة عند الضغط
+          });
+        }
+      },
+      child: Container(
+        child: Icon(
+          Icons.favorite_outlined,
+          size: 26,
+          color: isFavorite
+              ? Colors.red
+              : Colors.transparent, // تغيير اللون بناءً على الحالة
+          shadows: [
+            BoxShadow(
+              color: Colors.white, // لون الحواف
+              blurRadius: 1.0, // لتنعيم الحواف
+              spreadRadius: 1.0, // لتوسيع الحواف
+            ),
+          ],
         ),
       ),
     );

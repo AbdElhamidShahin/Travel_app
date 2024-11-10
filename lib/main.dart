@@ -1,11 +1,14 @@
 import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'model/cubit/bloc.dart';
 import 'model/itemProvider.dart';
 
 void main() {
+  // debugPaintSizeEnabled = true; // تفعيل حدود العناصر
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => ItemProvider(),
@@ -22,27 +25,25 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RecipeCubit>(
-          create: (context) => RecipeCubit()..loadSearchData(),
+          create: (context) => RecipeCubit()..loadData(),  // تحميل البيانات من ملف JSON
         ),
         // يمكنك إضافة مزودات أخرى هنا إذا لزم الأمر
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        // theme: ThemeData(
-        //   scaffoldBackgroundColor: const Color.fromRGBO(
-        //       255, 241, 242, 1), // Setting the background color
-        //   appBarTheme: const AppBarTheme(
-        //     iconTheme: IconThemeData(color: Colors.black),
-        //     elevation: 0.0,
-        //     titleTextStyle: TextStyle(
-        //       color: Colors.black,
-        //       fontSize: 24.0,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //   ),
-        //   useMaterial3: true,
-        // ),
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFFF5F5F5), // Setting the background color
+          appBarTheme: const AppBarTheme(
+            elevation: 0.0,
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          useMaterial3: true,
+        ),
         // darkTheme: ThemeData(
         //   scaffoldBackgroundColor: const Color(0x0ff0f4f8),
         //   appBarTheme: const AppBarTheme(

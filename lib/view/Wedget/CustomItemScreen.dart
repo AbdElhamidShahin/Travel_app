@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../model/articalmodel.dart';
@@ -32,8 +30,8 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image(
-                    image: const NetworkImage(
-                      'https://c.myholidays.com/packages/182f8b6a-8f17-4e04-8370-fdfdfb69fb87/original/5c34188f-c589-470a-8a9a-5a0949f3c046.webp',
+                    image:  AssetImage(
+                      widget.travel!.image,
                     ),
                     width: MediaQuery.of(context).size.width * 0.4,
                   ),
@@ -56,9 +54,9 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                         size: 30,
                         color: isFavorite ? Colors.red : Colors.transparent,
                         shadows: [
-                          BoxShadow(
+                          const   BoxShadow(
                             color: Colors.white,
-                            blurRadius: 3.0,
+                            blurRadius: 1.0,
                             spreadRadius: 1.0,
                           ),
                         ],
@@ -74,11 +72,11 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.travel?.name ?? 'No Name',
+                    widget.travel?.name.substring(0,10) ?? 'No Name',
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   SizedBox(height: 8),
-                  Row(
+                const   Row(
                     children: [
                       Text(
                         "Kamak Complex",
@@ -91,8 +89,8 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 22),
-                  Row(
+                  const SizedBox(height: 22),
+                  const  Row(
                     children: [
                       Icon(Icons.location_on_outlined),
                       Text(

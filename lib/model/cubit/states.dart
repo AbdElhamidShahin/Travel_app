@@ -1,6 +1,6 @@
 abstract class RecipeState {}
 
-class RecipeIntiatialState extends RecipeState {}
+class RecipeInitialState extends RecipeState {}
 
 class RecipeBottomnavBarState extends RecipeState {}
 
@@ -20,8 +20,8 @@ class NewsGetSearchLodingState extends RecipeState {}
 
 class NewsGetSearchSuccessState extends RecipeState {}
 
-class NewsGetSearchErrorState extends RecipeState {
+class RecipeErrorState extends RecipeState {
   final String error;
 
-  NewsGetSearchErrorState({required this.error});
+  RecipeErrorState({required this.error});
 }

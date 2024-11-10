@@ -3,27 +3,20 @@ import 'package:flutter/material.dart';
 import '../../model/articalmodel.dart';
 import 'CustomDetails.dart';
 
-class CustomCategories extends StatefulWidget {
+class CustomCategories extends StatelessWidget {
   final Travel? travel;
 
   const CustomCategories({super.key, this.travel});
 
   @override
-  State<CustomCategories> createState() => _CustomCategoriesState();
-}
-
-class _CustomCategoriesState extends State<CustomCategories> {
-  bool isFavorite = false; // لتتبع حالة الأيقونة
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.travel != null) {
+        if (travel != null) {
           Navigator.of(context).push(
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  CustomDetails(travel: widget.travel),
+                  CustomDetails(travel: travel),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 var sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -61,11 +54,18 @@ class _CustomCategoriesState extends State<CustomCategories> {
                     Positioned(
                       child: Image(
                         image: AssetImage(
-                          widget.travel!.image,
+                          travel!.image,
                         ),
                       ),
                     ),
-                    Iconfavoriteitem(travel: widget.travel), // تمرير travel هنا
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Align(
+                          alignment: Alignment.topRight,
+                          child: Iconfavoriteitem(
+                            travel: travel,
+                          )),
+                    ), // تمرير travel هنا
                   ],
                 ),
               ),
@@ -74,7 +74,9 @@ class _CustomCategoriesState extends State<CustomCategories> {
                 child: Row(
                   children: [
                     Text(
-                      widget.travel != null ? widget.travel!.name : 'غير متوفر',
+                      travel != null
+                          ? travel!.name
+                          : 'غير متوفر',
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -87,7 +89,7 @@ class _CustomCategoriesState extends State<CustomCategories> {
                       width: 25,
                     ),
                     Text(
-                      widget.travel != null ? widget.travel!.rating : '0',
+                      travel != null ? travel!.rating : '0',
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ],
@@ -109,11 +111,11 @@ class _CustomCategoriesState extends State<CustomCategories> {
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                 ],
-              ), ],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
-

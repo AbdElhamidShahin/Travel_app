@@ -1,6 +1,8 @@
-import 'package:Tourism_app/VeiwModel/SearchScrenn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart'; // Ensure correct import
+import 'package:google_fonts/google_fonts.dart';
+import '../model/articalmodel.dart';
 import '../model/cubit/bloc.dart';
 import '../model/cubit/states.dart';
 
@@ -18,13 +20,8 @@ class Search extends StatelessWidget {
             child: TextFormField(
               controller: searchController,
               onChanged: (value) {
+                // Call the search function when the value changes
                 RecipeCubit.get(context).getSearch(value);
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Search must not be empty';
-                }
-                return null;
               },
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
@@ -45,17 +42,28 @@ class Search extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          Flexible(
             child: BlocConsumer<RecipeCubit, RecipeState>(
-              listener: (BuildContext context, RecipeState state) {},
+              listener: (BuildContext context, RecipeState state) {
+                if (state is NewsGetSearchLodingState) {
+                  // Show loading indicator while searching
+                }
+              },
               builder: (BuildContext context, RecipeState state) {
                 var list = RecipeCubit.get(context).searchResults;
+
+                if (state is NewsGetSearchLodingState) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
                 if (list.isEmpty) {
                   return const Center(
-                    child: Text("No results found", style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    child: Text("No results found",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
                   );
                 }
-                return ArticleBuilder(list: list);
+
+                return ArticleBuilder(travel: list); // Pass the list to ArticleBuilder
               },
             ),
           ),
@@ -66,71 +74,93 @@ class Search extends StatelessWidget {
 }
 
 class BuildArticleItem extends StatelessWidget {
-  final dynamic article;
+  final List<Travel> travel; // Change to a List of Travel objects
 
-  const BuildArticleItem(this.article, {super.key});
+  const BuildArticleItem({Key? key, required this.travel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  article['urlToImage'] != null && article['urlToImage'].isNotEmpty
-                      ? article['urlToImage']
-                      : 'https://thumbs.dreamstime.com/b/news-woodn-dice-depicting-letters-bundle-small-newspapers-leaning-left-dice-34802664.jpg',
-                ),
-                fit: BoxFit.cover,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Found ${travel.length} Places", // Show correct count
+          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Flexible(
+              child: StaggeredGridView.countBuilder(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                itemCount: travel.length, // Corrected access to travel length
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: index.isEven ? Colors.amber : Colors.deepPurple,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image(
+                          height: 100,
+                          width: 100,
+                          image: AssetImage(travel[index].image), // Corrected property access
+                        ),
+                        Text(travel[index].name), // Corrected property access
+                        Text('${travel[index].price}/Person'), // Corrected property access
+                      ],
+                    ),
+                  );
+                },
+                staggeredTileBuilder: (index) {
+                  return StaggeredTile.count(1, index == 0 ? 0.3 : 1);
+                },
               ),
             ),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  article['title'] ?? 'No Title',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  article['publishedAt'] ?? '',
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
 class ArticleBuilder extends StatelessWidget {
-  final List<dynamic> list;
+  final List<Travel> travel;
 
-  const ArticleBuilder({super.key, required this.list});
+  const ArticleBuilder({Key? key, required this.travel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => BuildArticleItem(list[index]),
-      separatorBuilder: (context, index) => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Divider(),
-      ),
-      itemCount: list.length,
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      itemCount: travel.length, // Ensure this accesses the list length
+      itemBuilder: (context, index) {
+        return Container(
+          color: index.isEven ? Colors.amber : Colors.deepPurple,
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Image.asset(travel[index].image), // Correct access to image
+              Text(travel[index].name), // Correct access to name
+              Text('${travel[index].price}/Person'), // Correct access to price
+            ],
+          ),
+        );
+      },
+      staggeredTileBuilder: (index) {
+        return StaggeredTile.count(1, 1); // Customize tile size
+      },
     );
   }
 }
+
+

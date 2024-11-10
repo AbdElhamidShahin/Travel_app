@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../VeiwModel/SearchScrenn.dart';
-import '../../model/ImageUpper.dart';
-import '../screens/StackScreen.dart';
+import 'package:Tourism_app/view/Wedget/CustomCutogarisDoun.dart';
+import '../../model/JsonScrren.dart';
+import '../../model/articalmodel.dart';
+import 'UpperHomepageUi.dart'; // Ensure correct path for UpperHomepageUi.dart
+import 'CustomTabbar.dart'; // Ensure correct path for CustomTabbar.dart
 
 class TabBarPage extends StatefulWidget {
-  const TabBarPage({super.key});
+  final String? category;
+
+  const TabBarPage({super.key, this.category});
 
   @override
   _TabBarPageState createState() => _TabBarPageState();
@@ -12,19 +16,6 @@ class TabBarPage extends StatefulWidget {
 
 class _TabBarPageState extends State<TabBarPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,159 +23,47 @@ class _TabBarPageState extends State<TabBarPage>
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Row(
-              children: [
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "  Hello,Jayson",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-
-
-                      children: [
-                        Icon(Icons.location_on_outlined),
-                        Text(
-                          'Cairo, Egypt',
-                          style: TextStyle(color: Colors.grey, fontSize: 22),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.white),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.notifications_none,
-                      size: 24,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image(
-                    image: NetworkImage(
-                        "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png"),
-                    width: 50,
-                    height: 50,
-                  ),
-                )
-              ],
-            ),
-          ),
-          // استخدام TextField كبديل لشريط البحث
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                ),
-              ],
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Discover your place',
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                hintStyle: TextStyle(
-                  color: Colors.grey[400],
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Search()),
-                );
-              },
-            ),
-          ),
-
+          const Upperhomepageui(), // Upper homepage UI
           const SizedBox(height: 16),
-
-          Container(
-            alignment: Alignment.centerLeft,
-            child: TabBar(
-              dividerHeight: 0,
-              controller: _tabController,
-              isScrollable: true,
-              indicator: const BoxDecoration(
-                color: Colors.transparent,
-              ),
-              labelPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-              tabs: [
-                Tab(
-                  child: ImageUpper(
-                    image: 'assets/travel/Images/Desert.png',
-                    text: 'diner',
-                    isSelected: _tabController.index == 0,
-                  ),
-                ),
-                Tab(
-                  child: ImageUpper(
-                    image: 'assets/travel/Images/download.jpeg',
-                    text: 'breakfast',
-                    isSelected: _tabController.index == 1,
-                  ),
-                ),
-                Tab(
-                  child: ImageUpper(
-                    image: 'assets/travel/Images/Lake.jpeg',
-                    text: 'desserts',
-                    isSelected: _tabController.index == 2,
-                  ),
-                ),
-                Tab(
-                  child: ImageUpper(
-                    image: 'assets/travel/Images/Lake.jpeg',
-                    text: 'SeaFood',
-                    isSelected: _tabController.index == 3,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
+          const Customtabbar(),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              "Recommended",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500),
+              "Tour Packages",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
             ),
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                StacksScreen(category: 'diner'),
-                StacksScreen(category: 'breakfast'),
-                StacksScreen(category: 'desserts'),
-                StacksScreen(category: 'SeaFood'),
-              ],
+          Expanded( // Wrap the main content with Expanded to avoid overflow
+            child: SingleChildScrollView(
+              child: FutureBuilder<List<Travel>>(
+                future: fetchTravelFromJson(context, widget.category ?? "natural_places"),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('No travel packages found'));
+                  }
+
+                  final items = snapshot.data!;
+
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return Customcutogarisdoun(
+                            travel: items[index],
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],
