@@ -12,7 +12,7 @@ class Favorite extends StatelessWidget {
       builder: (context, itemProvider, child) {
         return Scaffold(
           appBar: AppBar(
-            title:const Center(
+            title: const Center(
               child: Text(
                 'My Favorite ',
                 style: TextStyle(
@@ -23,7 +23,7 @@ class Favorite extends StatelessWidget {
             ),
           ),
           body: itemProvider.items.isEmpty
-              ?const Center(
+              ? const Center(
                   child: Text('No favorite items',
                       style: TextStyle(fontSize: 18, color: Colors.grey)))
               : ListView.builder(
@@ -50,7 +50,6 @@ class Favorite extends StatelessWidget {
                                   }
                                 },
                               ),
-
                             ],
                           )),
                     );

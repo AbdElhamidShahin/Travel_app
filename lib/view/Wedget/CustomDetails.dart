@@ -7,7 +7,7 @@ class CustomDetails extends StatelessWidget {
 
   const CustomDetails({
     super.key,
-    required this.travel,
+     this.travel,
   });
 
   @override

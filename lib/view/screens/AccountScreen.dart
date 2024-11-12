@@ -1,91 +1,126 @@
-
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({super.key});
+class Setings extends StatelessWidget {
+  const Setings({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TabBar Sample'),
-        bottom: const TabBar(
-          tabs: <Widget>[
-            Tab(
-              icon: Icon(Icons.cloud_outlined),
-            ),
-            Tab(
-              icon: Icon(Icons.beach_access_sharp),
-            ),
-            Tab(
-              icon: Icon(Icons.brightness_5_sharp),
-            ),
-          ],
-        ),
+        leading: IconButton(onPressed: (){
+          
+          Navigator.pop(context);
+        }, icon:Icon(Icons.arrow_back_ios_new_rounded)),
+        title: Center(child: Text("Settinges",style: TextStyle(fontWeight: FontWeight.w500,fontSize:24 ),)),
+        actions: [],
       ),
-      body: const TabBarView(
-        children: <Widget>[
-          Center(
-            child: Text("It's cloudy here"),
+      body: ListView(
+        padding: const EdgeInsets.all(0),
+        children: [
+          _buildSettingsOption(
+            context,
+            icon: Icons.person_outline,
+            title: 'Account',
+            onPressed: () {
+              _launchUrl(
+                  "https://www.freeprivacypolicy.com/live/931d000c-ebf9-46ec-a72d-a619560a7173");
+            },
           ),
-          Center(
-            child: Text("It's rainy here"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: Divider(),
           ),
-          Center(
-            child: Text("It's sunny here"),
+          _buildSettingsOption(
+            context,
+            icon: Icons.notifications_none,
+            title: ' Notifications',
+            onPressed: () {
+              _launchUrl(
+                  "https://play.google.com/store/apps/details?id=com.lilithgame.roc.gp&pcampaignid=merch_published_cluster_promotion_battlestar_browse_all_games");
+            },
+          ),
+          Divider(),
+          _buildSettingsOption(
+            context,
+            icon: Icons.remove_red_eye_outlined,
+            title: 'Appearance',
+            onPressed: () {},
+          ),
+          Divider(),
+          _buildSettingsOption(
+            context,
+            icon: Icons.lock_open_rounded,
+            title: 'Privacy',
+            onPressed: () {
+              _showWarningDialog(context);
+            },
+          ),
+          Divider(),
+          _buildSettingsOption(
+            context,
+            icon: Icons.warning_amber,
+            title: 'warning',
+            onPressed: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => FAQPage()),
+              // );
+            },
           ),
         ],
       ),
     );
   }
-}
 
-class CustomIconSettings extends StatelessWidget {
-  const CustomIconSettings(
-      {super.key, required this.text, required this.image, this.icon});
-  final String text;
-
-  final String image;
-  final IconData? icon;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSettingsOption(BuildContext context,
+      {required IconData icon,
+      required String title,
+      required VoidCallback onPressed}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        children: [
-          Image(
-            image: AssetImage(image),
-            width: 40,
-            height: 40,
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          Column(
-            children: [
-              Text(
-                text,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(icon),
-              ),
-            ),
-          )
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ListTile(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        leading: Icon(icon, size: 28),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 20),
+        onTap: onPressed,
       ),
+    );
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    if (!await launchUrl(Uri.parse(urlString))) {
+      throw Exception("Could not launch $urlString");
+    }
+  }
+
+  void _showWarningDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('تحذير',
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+          content: const Text(
+            'هذه رسالة تحذير.',
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('موافق'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

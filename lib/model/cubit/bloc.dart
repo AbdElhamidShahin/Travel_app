@@ -33,7 +33,7 @@ class RecipeCubit extends Cubit<RecipeState> {
   List<Widget> screens = [
     TabBarPage(),
     Favorite(),
-    const Settings(),
+    Setings(),
   ];
 
   void changeBottomNavBar(int index) {
