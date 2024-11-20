@@ -1,10 +1,12 @@
 import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
 import 'model/cubit/bloc.dart';
 import 'model/itemProvider.dart';
+
+
 
 void main() {
   // debugPaintSizeEnabled = true; // تفعيل حدود العناصر
@@ -17,6 +19,7 @@ void main() {
   );
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,53 +28,42 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<RecipeCubit>(
-          create: (context) => RecipeCubit()..loadData(),  // تحميل البيانات من ملف JSON
+          create: (context) => RecipeCubit()..loadData(),
         ),
-        // يمكنك إضافة مزودات أخرى هنا إذا لزم الأمر
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xFFF5F5F5), // Setting the background color
+          scaffoldBackgroundColor: const Color(0xFFF5F5F5),
           appBarTheme: const AppBarTheme(
             color: Color(0xFFF5F5F5),
             elevation: 0.0,
             titleTextStyle: TextStyle(
+              fontFamily: 'FontFamily1', // الخط الأول
               color: Colors.black,
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
             ),
           ),
+          textTheme: TextTheme(
+            headlineLarge: TextStyle(
+              fontFamily: 'FontFamily1', // الخط الأول للعناوين
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            bodyLarge: TextStyle(
+              fontFamily: 'FontFamily2', // الخط الثاني للنصوص الكبيرة
+              fontSize: 18,
+              fontWeight: FontWeight.normal,
+            ),
+            bodyMedium: TextStyle(
+              fontFamily: 'FontFamily3', // الخط الثالث للنصوص المتوسطة
+              fontSize: 16,
+            ),
+          ),
           useMaterial3: true,
         ),
-        // darkTheme: ThemeData(
-        //   scaffoldBackgroundColor: const Color(0x0ff0f4f8),
-        //   appBarTheme: const AppBarTheme(
-        //     iconTheme: IconThemeData(color: Colors.white),
-        //     elevation: 0.0,
-        //     titleTextStyle: TextStyle(
-        //       color: Colors.white,
-        //       fontSize: 24.0,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //     backgroundColor: Colors.black,
-        //   ),
-        //   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        //     unselectedItemColor: Colors.grey,
-        //     backgroundColor: Colors.black,
-        //     elevation: 20.0,
-        //     selectedItemColor: Colors.amber,
-        //     selectedIconTheme: IconThemeData(color: Colors.amber),
-        //   ),
-        //   textTheme: const TextTheme(
-        //     bodyMedium: TextStyle(
-        //       fontWeight: FontWeight.w600,
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        //   useMaterial3: true,
-        // ),
         home: const HomePage(),
       ),
     );

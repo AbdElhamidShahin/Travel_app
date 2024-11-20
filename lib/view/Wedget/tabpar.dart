@@ -4,6 +4,7 @@ import '../../model/JsonScrren.dart';
 import '../../model/articalmodel.dart';
 import 'UpperHomepageUi.dart'; // Ensure correct path for UpperHomepageUi.dart
 import 'CustomTabbar.dart'; // Ensure correct path for CustomTabbar.dart
+import 'package:shimmer/shimmer.dart'; // لإضافة تأثير التحميل
 
 class TabBarPage extends StatefulWidget {
   final String? category;
@@ -16,7 +17,6 @@ class TabBarPage extends StatefulWidget {
 
 class _TabBarPageState extends State<TabBarPage>
     with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +33,45 @@ class _TabBarPageState extends State<TabBarPage>
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
             ),
           ),
-          Expanded( // Wrap the main content with Expanded to avoid overflow
+          Expanded(
+            // Wrap the main content with Expanded to avoid overflow
             child: SingleChildScrollView(
               child: FutureBuilder<List<Travel>>(
-                future: fetchTravelFromJson(context, widget.category ?? "natural_places"),
+                future: Future.delayed(
+                  const Duration(seconds: 2), // تأخير 5 ثوانٍ
+                  () => fetchTravelFromJson(
+                      context, widget.category ?? "natural_places"),
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    // عرض واجهة التحميل أثناء الانتظار
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 5, // عدد العناصر الهيكلية
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 8),
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No travel packages found'));
+                    return const Center(
+                        child: Text('No travel packages found'));
                   }
 
                   final items = snapshot.data!;

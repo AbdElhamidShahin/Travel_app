@@ -55,7 +55,9 @@ class CustomCategories extends StatelessWidget {
                       child: Image(
                         image: AssetImage(
                           travel!.image,
-                        ),
+                        ),                      height: MediaQuery.of(context).size.height * 0.2,
+
+
                       ),
                     ),
                     Padding(

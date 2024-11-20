@@ -85,7 +85,7 @@ class CustomDetails extends StatelessWidget {
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back_ios_new_rounded,
-                                    size: 22,
+                                    size: 18,
                                     color: Colors.white,
                                   ))),
                         ),
@@ -151,9 +151,9 @@ class CustomDetails extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 22),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 1,
+                 Divider(
+                  color: Colors.grey[300],
+                  thickness: 1
                 ),
                 const SizedBox(height: 22),
                 Row(

@@ -81,7 +81,7 @@ class CustomTabBar extends StatelessWidget {
             _buildTabItem(0, 'assets/travel/Images/Desert.png', 'Desert '),
             _buildTabItem(1, 'assets/travel/Images/download.jpeg', 'Landscapes '),
             _buildTabItem(2, 'assets/travel/Images/Lake.jpeg', 'Hills  '),
-            _buildTabItem(3, 'assets/travel/Images/Lake.jpeg', 'City  '),
+            _buildTabItem(3, 'assets/travel/Images/220163.png', 'City  '),
           ],
         ),
       ),

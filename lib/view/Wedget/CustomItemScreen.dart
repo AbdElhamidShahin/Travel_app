@@ -78,14 +78,14 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                   children: [
                     Text(
                       widget.travel?.name.substring(0, 10) ?? 'No Name',
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                     SizedBox(height: 8),
                     const Row(
                       children: [
                         Text(
-                          "Kamak Complex",
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                          "Starting from",
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                         SizedBox(width: 8),
                         Text(
@@ -102,7 +102,7 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                           'Egypt',
                           style: TextStyle(color: Colors.grey, fontSize: 16),
                         ),
-                        SizedBox(width: 40),
+                        SizedBox(width: 30),
                         Image(
                           image: AssetImage('assets/imagesFood/star.png'),
                           height: 24,

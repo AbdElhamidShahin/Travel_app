@@ -1,6 +1,7 @@
-import 'package:Tourism_app/model/JsonScrren.dart';
-import 'package:Tourism_app/model/articalmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:Tourism_app/model/JsonScrren.dart';
+import '../../model/articalmodel.dart';
 import '../Wedget/CustomCatogries.dart';
 
 class StacksScreen extends StatelessWidget {
@@ -11,10 +12,33 @@ class StacksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Travel>>(
-      future: fetchTravelFromJson(context,category),
+      future: Future.delayed(
+        const Duration(seconds: 2), // انتظار 5 ثوانٍ
+            () => fetchTravelFromJson(context, category),
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          // عرض واجهة التحميل أثناء الانتظار
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5, // عدد العناصر الهيكلية
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: 250,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -29,23 +53,21 @@ class StacksScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.29,
+                  height: MediaQuery.of(context).size.height * 0.32,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(top: 12,bottom: 0,left: 12,right: 12),
+                        padding: const EdgeInsets.only(
+                            top: 12, bottom: 0, left: 12, right: 12),
                         child: SizedBox(
                           width: 250,
-
                           child: Column(
                             children: [
                               CustomCategories(
                                 travel: items[index],
                               ),
-
-
                             ],
                           ),
                         ),
