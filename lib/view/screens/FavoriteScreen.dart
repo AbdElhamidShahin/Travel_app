@@ -17,8 +17,7 @@ class Favorite extends StatelessWidget {
                 'My Favorite ',
                 style: TextStyle(
                     fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -32,7 +31,7 @@ class Favorite extends StatelessWidget {
                     final travel = itemProvider.items[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                          horizontal: 8, vertical: 8),
                       child: Card(
                           elevation: 4,
                           shape: RoundedRectangleBorder(

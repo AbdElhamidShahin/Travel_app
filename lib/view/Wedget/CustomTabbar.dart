@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../model/ImageUpper.dart';
-import '../screens/StackScreen.dart';
+import 'CustomTapBarItem.dart';
+import '../../VeiwModel/PushData/PushItemData.dart';
 
 class Customtabbar extends StatefulWidget {
   const Customtabbar({super.key});
@@ -38,7 +38,7 @@ class _CustomtabbarState extends State<Customtabbar> {
           child: Text(
             "Recommended",
             style: TextStyle(
-                color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500),
+                 fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         SizedBox(
@@ -47,10 +47,10 @@ class _CustomtabbarState extends State<Customtabbar> {
             index:
                 selectedIndex, // استخدام IndexedStack لعرض التبويبات بناءً على الاختيار
             children: const [
-              StacksScreen(category: 'egyptian_landmarks'),
-              StacksScreen(category: 'natural_places'),
-              StacksScreen(category: 'egyptian_hills'),
-              StacksScreen(category: 'egyptian_cities'),
+              PushItemData(category: 'egyptian_landmarks'),
+              PushItemData(category: 'natural_places'),
+              PushItemData(category: 'egyptian_hills'),
+              PushItemData(category: 'egyptian_cities'),
             ],
           ),
         ),

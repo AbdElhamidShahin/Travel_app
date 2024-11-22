@@ -13,7 +13,7 @@ class Customcutogarisdoun extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20, left: 20, bottom: 10),
+      padding: const EdgeInsets.only(right: 10, left: 10, bottom: 8,top: 0),
       child: GestureDetector(
         child: Customitemscreen(
           travel: travel,

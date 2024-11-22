@@ -1,11 +1,12 @@
+import 'package:Tourism_app/view/screens/HomePage.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import '../Wedget/CustomTextFeild.dart';
-import '../screens/HomePage.dart';
+import '../Wedget/Custom_button.dart';
 
 class Loginscreen extends StatelessWidget {
-  const Loginscreen({super.key});
-
+  String? email, password;
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -25,7 +26,7 @@ class Loginscreen extends StatelessWidget {
                   BlendMode.darken,
                 ),
                 child: Image.asset(
-                  'assets/food/293364-wallpaper-1080-2280.jpg',
+                  'assets/travel/Images/gettyimages-95062687-612x612.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -62,6 +63,7 @@ class Loginscreen extends StatelessWidget {
                         },
                         hintText: 'Email',
                         lableText: 'Email',
+                        onChanged: (data) => email = data,
                       ),
                       Customtextfeild(
                         validator: (value) {
@@ -75,6 +77,9 @@ class Loginscreen extends StatelessWidget {
                         },
                         hintText: 'PassWord',
                         lableText: 'PassWord',
+                        onChanged: (data) {
+                          password = data;
+                        },
                       ),
                       TextButton(
                         onPressed: () {},
@@ -87,37 +92,47 @@ class Loginscreen extends StatelessWidget {
                       SizedBox(
                         width: 300,
                         height: 55,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
+                        child: CustomButton(
+                          text: 'Login',
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .createUserWithEmailAndPassword(
+                                  email: email!,
+                                  password: password!,
                                 );
+
+                                showCustomSnackbar(context, ContentType.success,
+                                    'Success', 'Hey, you');
+
+                                await Future.delayed(Duration(seconds: 2));
 
                                 Navigator.push(
                                   context,
-                                  PageTransition(
-                                    type: PageTransitionType
-                                        .fade, // أو استخدم PageTransitionType.slideRight أو غيرها
-                                    duration: const Duration(
-                                        milliseconds: 500), // مدة الانتقال
-                                    child: const HomePage(),
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(),
                                   ),
                                 );
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  showCustomSnackbar(
+                                      context,
+                                      ContentType.failure,
+                                      'Error',
+                                      'Weak password');
+                                } else if (e.code == 'email-already-in-use') {
+                                  showCustomSnackbar(
+                                      context,
+                                      ContentType.failure,
+                                      'Error',
+                                      'Email already in use');
+                                }
+                              } catch (e) {
+                                print(e);
                               }
-                            },
-                            child: const Text(
-                              'SIGN IN',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ),
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -145,4 +160,65 @@ class Loginscreen extends StatelessWidget {
       ),
     );
   }
+
+  void showCustomSnackbar(BuildContext context, ContentType messageType, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+              top: 50.0, // المسافة من أعلى الشاشة
+              left: 20.0,
+              right: 20.0,
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                  decoration: BoxDecoration(
+                    color: messageType == ContentType.success ? Colors.green : Colors.red,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        messageType == ContentType.success ? Icons.check : Icons.error,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          message,
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pop(context); // إغلاق الرسالة عند الضغط على زر الإغلاق
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

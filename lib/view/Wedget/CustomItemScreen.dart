@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../../model/articalmodel.dart';
 
 class Customitemscreen extends StatefulWidget {
-  const Customitemscreen({super.key, this.travel, this.onTap, this.onTap1, });
+  const Customitemscreen({
+    super.key,
+    this.travel,
+    this.onTap,
+    this.onTap1,
+  });
   final Travel? travel;
   final VoidCallback? onTap;
   final VoidCallback? onTap1;
@@ -14,7 +19,6 @@ class Customitemscreen extends StatefulWidget {
 
 class _CustomitemscreenState extends State<Customitemscreen> {
   bool isFavorite = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +41,12 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                       image: AssetImage(
                         widget.travel!.image,
                       ),
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.42,
                     ),
                   ),
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
-
                       onTap: () {
                         setState(() {
                           isFavorite = !isFavorite;
@@ -77,24 +80,23 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.travel?.name.substring(0, 10) ?? 'No Name',
+                      widget.travel?.name.substring(3) ?? 'No Name',
                       style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                     SizedBox(height: 8),
-                    const Row(
+                     Row(
                       children: [
                         Text(
-                          "Starting from",
+                          "Starting from ",
                           style: TextStyle(color: Colors.grey, fontSize: 12),
                         ),
-                        SizedBox(width: 8),
                         Text(
-                          "\$59",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          "${widget.travel!.price}\$",
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 22),
+                    const SizedBox(height: 20),
                     const Row(
                       children: [
                         Icon(Icons.location_on_outlined),
@@ -122,6 +124,5 @@ class _CustomitemscreenState extends State<Customitemscreen> {
         ),
       ),
     );
-
   }
 }

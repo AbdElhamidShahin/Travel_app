@@ -1,27 +1,33 @@
-abstract class RecipeState {}
+abstract class TravelState {}
 
-class RecipeInitialState extends RecipeState {}
+class TravelInitialState extends TravelState {}
 
-class RecipeBottomnavBarState extends RecipeState {}
+class TravelBottomnavBarState extends TravelState {}
 
-class RecipeGetDataLoadingState extends RecipeState {}
+class TravelGetDataLoadingState extends TravelState {}
 
-class RecipeGetDataSuccessState extends RecipeState {
+class TravelGetDataSuccessState extends TravelState {
   final List<dynamic> Recipe;
-  RecipeGetDataSuccessState(this.Recipe);
+  TravelGetDataSuccessState(this.Recipe);
 }
 
-class RecipeGetDataErrorState extends RecipeState {
+class TravelGetDataErrorState extends TravelState {
   final String error;
-  RecipeGetDataErrorState(this.error);
+  TravelGetDataErrorState(this.error);
 }
 
-class NewsGetSearchLodingState extends RecipeState {}
+class TravelGetSearchLodingState extends TravelState {}
 
-class NewsGetSearchSuccessState extends RecipeState {}
+class TravelGetSearchSuccessState extends TravelState {}
 
-class RecipeErrorState extends RecipeState {
+class TravelErrorState extends TravelState {
   final String error;
 
-  RecipeErrorState({required this.error});
+  TravelErrorState({required this.error});
+}
+
+class AppChangeModeState extends TravelState {
+  final bool isDark;
+
+  AppChangeModeState(this.isDark);
 }

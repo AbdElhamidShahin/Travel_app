@@ -116,7 +116,6 @@ class CustomDetails extends StatelessWidget {
                     Text(
                       travel?.name ?? '',
                       style: const TextStyle(
-                          color: Colors.black,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),
@@ -124,7 +123,6 @@ class CustomDetails extends StatelessWidget {
                     const Text(
                       "\$225",
                       style: TextStyle(
-                          color: Colors.black,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),
@@ -170,7 +168,6 @@ class CustomDetails extends StatelessWidget {
                     Text(
                       travel?.address ?? '',
                       style: const TextStyle(
-                          color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
@@ -191,7 +188,6 @@ class CustomDetails extends StatelessWidget {
                     Text(
                       travel?.working_hours ?? '',
                       style: const TextStyle(
-                          color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
@@ -204,7 +200,6 @@ class CustomDetails extends StatelessWidget {
                     Text(
                       travel?.rating ?? '',
                       style: const TextStyle(
-                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
                     ),
@@ -214,7 +209,6 @@ class CustomDetails extends StatelessWidget {
                 const Text(
                   'Description',
                   style: TextStyle(
-                      color: Colors.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 24),
                 ),
@@ -226,7 +220,6 @@ class CustomDetails extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -239,7 +232,6 @@ class CustomDetails extends StatelessWidget {
                     child: Text(
                       "Book now",
                       style: TextStyle(
-                        color: Colors.white,
                         fontSize: 22,
                       ),
                     ),

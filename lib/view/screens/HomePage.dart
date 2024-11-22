@@ -10,11 +10,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => RecipeCubit(),
-      child: BlocConsumer<RecipeCubit,RecipeState>(
+      create: (BuildContext context) => TravelCubit(),
+      child: BlocConsumer<TravelCubit,TravelState>(
         listener: (BuildContext context, state) {},
         builder: (context, state) {
-          var cubit = RecipeCubit.get(context);
+          var cubit = TravelCubit.get(context);
 
           return Scaffold(
             body: cubit.screens[cubit.currentIndex],  // يعرض الشاشة بناءً على الفهرس الحالي
@@ -33,18 +33,59 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),  // قص الحواف لتصبح دائرية
+                borderRadius: BorderRadius.only(topRight: Radius.circular(32),topLeft: Radius.circular(32)),  // قص الحواف لتصبح دائرية
                 child: BottomNavigationBar(
-                  items: cubit.bottomItems,  // قائمة العناصر السفلية
-                  currentIndex: cubit.currentIndex,  // الفهرس الحالي
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: cubit.currentIndex == 0 ? Colors.black : Colors.transparent, // الخلفية السوداء للعنصر النشط فقط
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(Icons.home), // الأيقونة
+                      ),
+                      label: '', // إزالة التسمية
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: cubit.currentIndex == 1 ? Colors.black : Colors.transparent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(Icons.favorite_outline),
+                      ),
+                      label: '', // إزالة التسمية
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Container(
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: cubit.currentIndex == 2 ? Colors.black : Colors.transparent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(Icons.person),
+                      ),
+                      label: '', // إزالة التسمية
+                    ),
+                  ],
+                  currentIndex: cubit.currentIndex,
                   onTap: (index) {
-                    cubit.changeBottomNavBar(index);  // تغيير الفهرس عند الضغط على عنصر
+                    cubit.changeBottomNavBar(index); // تغيير الفهرس عند الضغط
                   },
-                  backgroundColor: Colors.black54,  // لون الخلفية
-                  type: BottomNavigationBarType.fixed,  // نوع الشريط ثابت
-                  selectedItemColor: Colors.amber,  // لون العنصر المختار
-                  unselectedItemColor: Colors.white54,  // لون العناصر غير المختارة
-                  elevation: 0,  // إلغاء الظل الافتراضي
+                  type: BottomNavigationBarType.fixed, // نوع الشريط
+                  selectedItemColor: Colors.white, // لون العنصر النشط
+                  unselectedItemColor: Colors.black, // لون العناصر غير النشطة
+                  backgroundColor: Colors.white, // لون الخلفية
+                  elevation: 0,  selectedLabelStyle: TextStyle(
+                  fontSize: 1.0, // حجم النص النشط
+                  fontWeight: FontWeight.bold,
+                ),
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 1.0, // حجم النص غير النشط
+                    fontWeight: FontWeight.normal,
+                  ), // إزالة الظل
                 ),
               ),
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../VeiwModel/SearchScrenn.dart';
 
 class Upperhomepageui extends StatelessWidget {
@@ -20,7 +19,6 @@ class Upperhomepageui extends StatelessWidget {
                   Text(
                     "  Hello,Jayson",
                     style: TextStyle(
-                        color: Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
@@ -45,6 +43,7 @@ class Upperhomepageui extends StatelessWidget {
                   icon: Icon(
                     Icons.notifications_none,
                     size: 24,
+                    color: Colors.black,
                   ),
                 ),
               ),

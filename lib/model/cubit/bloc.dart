@@ -4,88 +4,96 @@ import 'package:Tourism_app/model/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../view/Wedget/tabpar.dart';
-import '../../view/screens/AccountScreen.dart';
+import '../../view/screens/tabpar.dart';
+import '../../view/screens/SettingScreen.dart';
 import '../../view/screens/FavoriteScreen.dart';
 import '../articalmodel.dart';
 
-class RecipeCubit extends Cubit<RecipeState> {
-  RecipeCubit() : super((RecipeInitialState()));
+class TravelCubit extends Cubit<TravelState> {
+  TravelCubit() : super((TravelInitialState()));
 
-  static RecipeCubit get(context) => BlocProvider.of<RecipeCubit>(context);
+  static TravelCubit get(context) => BlocProvider.of<TravelCubit>(context);
 
   int currentIndex = 0;
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
       icon: Icon(Icons.home_filled),
-      label: '',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite_outline_rounded),
-      label: '',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.person_outline),
-      label: '',
+      icon: Icon(Icons.person_outline_outlined),
     ),
   ];
 
   List<Widget> screens = [
     TabBarPage(),
     Favorite(),
-    Setings(),
+    SettingScreen(),
   ];
 
   void changeBottomNavBar(int index) {
     currentIndex = index;
     if (index == 0) {}
-    emit(RecipeBottomnavBarState());
+    emit(TravelBottomnavBarState());
   }
 
   List<Travel> naturalPlaces = [];
   List<Travel> searchResults = [];
 
-  // دالة لقراءة البيانات من ملف JSON في الـ assets
   Future<void> loadData() async {
     try {
-      // قراءة ملف الـ JSON من الـ assets
       String jsonString = await rootBundle.loadString('assets/json/travel.json');
-
-      // تحويل النص إلى Map
       Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
 
-      // التحقق من أن "natural_places" موجود في الـ JSON و تحميل الأماكن من هناك
       if (jsonResponse.containsKey('natural_places')) {
         List<dynamic> placesJson = jsonResponse['natural_places'];
-
-        // تحويل الـ JSON إلى قائمة من كائنات Travel
         naturalPlaces = placesJson.map((data) => Travel.fromJson(data)).toList();
-
-        emit(RecipeInitialState()); // إصدار حالة النجاح
+        emit(TravelInitialState());
       } else {
         throw Exception('Key "natural_places" not found in JSON');
       }
     } catch (e) {
       print('Error loading JSON data: $e');
-      emit(RecipeErrorState(error: 'Error loading data'));
+      emit(TravelErrorState(error: 'Error loading data'));
     }
   }
 
-  // دالة للبحث عن الأماكن بناءً على مدخلات المستخدم
   void getSearch(String value) {
-    emit(NewsGetSearchLodingState());
+    emit(TravelGetSearchLodingState());
+
+    if (value.isEmpty) {
+      // إذا كانت القيمة المدخلة فارغة، نعرض جميع الأماكن
+      searchResults = List.from(naturalPlaces);
+      emit(TravelGetSearchSuccessState());
+      return;
+    }
 
     try {
-      // تصفية الأماكن بناءً على القيمة المدخلة
       searchResults = naturalPlaces.where((place) {
         final name = place.name.toLowerCase();
         final description = place.description.toLowerCase();
-        return name.contains(value.toLowerCase()) || description.contains(value.toLowerCase());
+        final location = place.address.toLowerCase(); // مثال لخاصية إضافية
+        return name.contains(value.toLowerCase()) ||
+            description.contains(value.toLowerCase()) ||
+            location.contains(value.toLowerCase());
       }).toList();
 
-      emit(NewsGetSearchSuccessState());
+      if (searchResults.isEmpty) {
+        emit(TravelGetSearchLodingState());
+      } else {
+        emit(TravelGetSearchSuccessState());
+      }
     } catch (error) {
-      emit(RecipeGetDataErrorState( error.toString()));
+      emit(TravelGetDataErrorState(error.toString()));
     }
+  }
+
+  bool isDark = false;
+
+  void changeAppMode() {
+    isDark = !isDark;
+    emit(AppChangeModeState(isDark)); // تمرير isDark مع الحالة
   }
 }

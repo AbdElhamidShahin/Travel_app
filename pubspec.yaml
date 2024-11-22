@@ -48,6 +48,11 @@ dependencies:
   google_fonts: ^6.2.1
   redacted: ^1.0.12
   shimmer: ^3.0.0
+  auto_size_text: ^3.0.0
+  firebase_auth: ^5.3.3
+  firebase_core: ^3.8.0
+  awesome_snackbar_content: ^0.1.4
+
 
 
 
@@ -82,6 +87,7 @@ flutter:
     - assets/travel/Tourism/natural_places/
     - assets/travel/Tourism/city/
     - assets/travel/Tourism/Hills/
+    - assets/travel/Tourism/Tour_Package/
 
 
 

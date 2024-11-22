@@ -55,9 +55,7 @@ class CustomCategories extends StatelessWidget {
                       child: Image(
                         image: AssetImage(
                           travel!.image,
-                        ),                      height: MediaQuery.of(context).size.height * 0.2,
-
-
+                        ),
                       ),
                     ),
                     Padding(
@@ -76,12 +74,10 @@ class CustomCategories extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      travel != null
-                          ? travel!.name
-                          : 'غير متوفر',
+                       travel!.name ,
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 1,
                           fontWeight: FontWeight.w500),
                     ),
                     const Spacer(),
@@ -91,13 +87,13 @@ class CustomCategories extends StatelessWidget {
                       width: 25,
                     ),
                     Text(
-                      travel != null ? travel!.rating : '0',
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
+                    travel!.rating,
+                      style: const TextStyle(color: Colors.black, fontSize: 1),
                     ),
                   ],
                 ),
               ),
-              const Row(
+               Row(
                 children: [
                   Icon(
                     Icons.location_on_outlined,
@@ -108,6 +104,10 @@ class CustomCategories extends StatelessWidget {
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                   Spacer(),
+                  Text(
+                    '${travel!.price}',
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                  ),
                   Text(
                     '/Person',
                     style: TextStyle(color: Colors.grey, fontSize: 14),
