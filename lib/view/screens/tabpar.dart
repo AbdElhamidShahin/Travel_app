@@ -38,13 +38,12 @@ class _TabBarPageState extends State<TabBarPage>
             child: SingleChildScrollView(
               child: FutureBuilder<List<Travel>>(
                 future: Future.delayed(
-                  const Duration(seconds: 2), // تأخير 5 ثوانٍ
+                  const Duration(seconds: 2),
                       () => fetchTravelFromJson(
                       context, widget.category ?? "Tour_Package"),
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // عرض واجهة التحميل أثناء الانتظار
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

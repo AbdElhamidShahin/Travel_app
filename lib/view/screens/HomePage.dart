@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                           color: cubit.currentIndex == 0 ? Colors.black : Colors.transparent, // الخلفية السوداء للعنصر النشط فقط
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Icon(Icons.home), // الأيقونة
+                        child: Icon(Icons.home,size: 30,), // الأيقونة
                       ),
                       label: '', // إزالة التسمية
                     ),
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                           color: cubit.currentIndex == 1 ? Colors.black : Colors.transparent,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Icon(Icons.favorite_outline),
+                        child: Icon(Icons.favorite_outline,size: 30,),
                       ),
                       label: '', // إزالة التسمية
                     ),
@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                           color: cubit.currentIndex == 2 ? Colors.black : Colors.transparent,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Icon(Icons.person),
+                        child: Icon(Icons.person,size: 30,),
                       ),
                       label: '', // إزالة التسمية
                     ),

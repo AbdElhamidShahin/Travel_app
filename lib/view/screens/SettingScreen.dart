@@ -1,4 +1,7 @@
+import 'package:Tourism_app/model/cubit/bloc.dart';
+import 'package:Tourism_app/model/cubit/states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -6,74 +9,88 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios_new_rounded)),
-        title: Center(
-            child: Text(
-          "Settinges",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-        )),
-        actions: [],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(0),
-        children: [
-          _buildSettingsOption(
-            context,
-            icon: Icons.person_outline,
-            title: 'Account',
-            onPressed: () {
-              _launchUrl(
-                  "https://www.freeprivacypolicy.com/live/931d000c-ebf9-46ec-a72d-a619560a7173");
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Divider(),
-          ),
-          _buildSettingsOption(
-            context,
-            icon: Icons.notifications_none,
-            title: ' Notifications',
-            onPressed: () {
-              _launchUrl(
-                  "https://play.google.com/store/apps/details?id=com.lilithgame.roc.gp&pcampaignid=merch_published_cluster_promotion_battlestar_browse_all_games");
-            },
-          ),
-          Divider(),
-          _buildSettingsOption(
-            context,
-            icon: Icons.remove_red_eye_outlined,
-            title: 'Appearance',
-            onPressed: () {},
-          ),
-          Divider(),
-          _buildSettingsOption(
-            context,
-            icon: Icons.lock_open_rounded,
-            title: 'Privacy',
-            onPressed: () {
-              _showWarningDialog(context);
-            },
-          ),
-          Divider(),
-          _buildSettingsOption(
-            context,
-            icon: Icons.warning_amber,
-            title: 'warning',
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => FAQPage()),
-              // );
-            },
-          ),
-        ],
+    return BlocProvider(
+      create: (BuildContext context)=>TravelCubit(),
+      child: BlocConsumer<TravelCubit, TravelState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Center(
+                  child: Text(
+                "Settinges",
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+              )),
+              actions: [],
+            ),
+            body: ListView(
+              padding: const EdgeInsets.all(0),
+              children: [
+                _buildSettingsOption(
+                  context,
+                  icon: Icons.person_outline,
+                  title: 'Account',
+                  onPressed: () {
+                    _launchUrl(
+                        "https://www.freeprivacypolicy.com/live/931d000c-ebf9-46ec-a72d-a619560a7173");
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: Divider(),
+                ),
+                _buildSettingsOption(
+                  context,
+                  icon: Icons.notifications_none,
+                  title: ' Notifications',
+                  onPressed: () {
+                    _launchUrl(
+                        "https://play.google.com/store/apps/details?id=com.lilithgame.roc.gp&pcampaignid=merch_published_cluster_promotion_battlestar_browse_all_games");
+                  },
+                ),
+                Divider(),
+                IconButton(
+                  onPressed: () {
+                    TravelCubit.get(context).changeAppMode();
+                  },
+                  icon: Icon(
+                    Icons.dark_mode_outlined,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                ),
+
+                Divider(),
+                _buildSettingsOption(
+                  context,
+                  icon: Icons.remove_red_eye_outlined,
+                  title: 'Appearance',
+                  onPressed: () {},
+                ),
+                Divider(),
+                _buildSettingsOption(
+                  context,
+                  icon: Icons.lock_open_rounded,
+                  title: 'Privacy',
+                  onPressed: () {
+                    _showWarningDialog(context);
+                  },
+                ),
+                Divider(),
+                _buildSettingsOption(
+                  context,
+                  icon: Icons.warning_amber,
+                  title: 'warning',
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => FAQPage()),
+                    // );
+                  },
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

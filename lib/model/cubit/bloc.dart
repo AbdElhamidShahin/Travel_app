@@ -44,12 +44,14 @@ class TravelCubit extends Cubit<TravelState> {
 
   Future<void> loadData() async {
     try {
-      String jsonString = await rootBundle.loadString('assets/json/travel.json');
+      String jsonString =
+          await rootBundle.loadString('assets/json/travel.json');
       Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
 
       if (jsonResponse.containsKey('natural_places')) {
         List<dynamic> placesJson = jsonResponse['natural_places'];
-        naturalPlaces = placesJson.map((data) => Travel.fromJson(data)).toList();
+        naturalPlaces =
+            placesJson.map((data) => Travel.fromJson(data)).toList();
         emit(TravelInitialState());
       } else {
         throw Exception('Key "natural_places" not found in JSON');

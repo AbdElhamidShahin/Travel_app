@@ -19,21 +19,73 @@ class CustomCategories extends StatelessWidget {
                   CustomDetails(travel: travel),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                var sizeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+                // حركة الصفحة: انزلاق + دوران + تكبير
+                var slideAnimation = Tween<Offset>(
+                  begin: const Offset(1.0, 0.5), // يبدأ من الزاوية
+                  end: Offset.zero, // ينتهي في المنتصف
+                ).animate(
                   CurvedAnimation(
-                      parent: animation, curve: Curves.easeInOutCubic),
-                );
-
-                return SizeTransition(
-                  sizeFactor: sizeAnimation,
-                  axisAlignment: 0.0,
-                  child: FadeTransition(
-                    opacity: animation,
-                    child: child,
+                    parent: animation,
+                    curve: Curves.easeInOutExpo,
                   ),
                 );
+
+                var rotationAnimation =
+                    Tween<double>(begin: -0.2, end: 0.0).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutBack,
+                  ),
+                );
+
+                var scaleAnimation =
+                    Tween<double>(begin: 0.8, end: 1.0).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.fastOutSlowIn,
+                  ),
+                );
+
+                // خلفية متحركة بألوان حيادية
+                return Stack(
+                  children: [
+                    Positioned.fill(
+                      child: AnimatedBuilder(
+                        animation: animation,
+                        builder: (context, _) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              gradient: RadialGradient(
+                                colors: [
+                                  Colors.lightBlueAccent.withOpacity(
+                                      animation.value), // لون أزرق فاتح
+                                  Colors.white.withOpacity(
+                                      1 - animation.value), // خلفية بيضاء
+                                ],
+                                radius: 2.5,
+                                center: Alignment(
+                                    animation.value - 0.1, animation.value),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // تأثير Lottie مع الحركة
+                    SlideTransition(
+                      position: slideAnimation,
+                      child: RotationTransition(
+                        turns: rotationAnimation,
+                        child: ScaleTransition(
+                          scale: scaleAnimation,
+                          child: child,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
               },
-              transitionDuration: const Duration(milliseconds: 600),
+              transitionDuration: const Duration(milliseconds: 1800),
             ),
           );
         }
@@ -74,10 +126,10 @@ class CustomCategories extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                       travel!.name ,
+                      travel?.name ?? '',
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 1,
+                          fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
                     const Spacer(),
@@ -87,13 +139,13 @@ class CustomCategories extends StatelessWidget {
                       width: 25,
                     ),
                     Text(
-                    travel!.rating,
-                      style: const TextStyle(color: Colors.black, fontSize: 1),
+                      travel!.rating,
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
                     ),
                   ],
                 ),
               ),
-               Row(
+              Row(
                 children: [
                   Icon(
                     Icons.location_on_outlined,

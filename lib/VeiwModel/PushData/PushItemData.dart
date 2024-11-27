@@ -13,7 +13,7 @@ class PushItemData extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Travel>>(
       future: Future.delayed(
-        const Duration(seconds: 2), // انتظار 5 ثوانٍ
+        const Duration(seconds: 2),
         () => fetchTravelFromJson(context, category),
       ),
       builder: (context, snapshot) {

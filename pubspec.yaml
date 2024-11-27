@@ -52,6 +52,7 @@ dependencies:
   firebase_auth: ^5.3.3
   firebase_core: ^3.8.0
   awesome_snackbar_content: ^0.1.4
+  lottie: ^3.1.3
 
 
 
@@ -88,6 +89,7 @@ flutter:
     - assets/travel/Tourism/city/
     - assets/travel/Tourism/Hills/
     - assets/travel/Tourism/Tour_Package/
+    - assets/travel/Tourism/malecostume-512.webp
 
 
 

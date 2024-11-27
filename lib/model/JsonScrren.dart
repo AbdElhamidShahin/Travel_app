@@ -7,23 +7,17 @@ import 'articalmodel.dart';
 Future<List<Travel>> fetchTravelFromJson(BuildContext context, String category) async {
   try {
     final String response = await rootBundle.loadString('assets/json/travel.json');
-    final data = json.decode(response);
+    final Map<String, dynamic> data = json.decode(response);
 
-    // Print the data to debug and check the structure
-    debugPrint('Loaded JSON: $data');
-
-    // Check if the category exists in the JSON
     if (data.containsKey(category)) {
-      final categoryData = data[category] as List<dynamic>;
-      List<Travel> travel = categoryData.map((json) => Travel.fromJson(json)).toList();
-      return travel;
+      final List<dynamic> categoryData = data[category] as List<dynamic>;
+      List<Travel> travels = categoryData.map((json) => Travel.fromJson(json)).toList();
+      return travels;
     } else {
-      // Log the error when category is not found
-      debugPrint('Category "$category" not found in the JSON data.');
+      debugPrint('الفئة "$category" غير موجودة في البيانات.');
       return [];
     }
   } catch (e) {
-    debugPrint('Error loading JSON data: $e');
+    debugPrint('خطأ أثناء تحميل البيانات: $e');
     return [];
-  }
-}
+  }}

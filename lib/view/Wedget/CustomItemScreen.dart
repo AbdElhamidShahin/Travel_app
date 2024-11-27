@@ -97,7 +97,7 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Row(
+                     Row(
                       children: [
                         Icon(Icons.location_on_outlined),
                         Text(
@@ -111,7 +111,7 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                           width: 24,
                         ),
                         Text(
-                          "4.6",
+                          widget.travel!.rating,
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                       ],

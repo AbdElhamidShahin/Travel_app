@@ -79,15 +79,16 @@ class CustomDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Center(
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back_ios_new_rounded,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ))),
+                              child:GestureDetector(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      size: 18,
+                                      color: Colors.white,
+                                    ),
+                              )),
                         ),
                       ),
                       Spacer(),

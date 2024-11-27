@@ -9,58 +9,55 @@ class Upperhomepageui extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "  Hello,Jayson",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.location_on_outlined),
-                      Text(
-                        'Cairo, Egypt',
-                        style: TextStyle(color: Colors.grey, fontSize: 22),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              Spacer(),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications_none,
-                    size: 24,
-                    color: Colors.black,
-                  ),
+        Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "  Hello,Jayson",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.location_on_outlined),
+                    Text(
+                      'Cairo, Egypt',
+                      style: TextStyle(color: Colors.grey, fontSize: 22),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.white),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_none,
+                  size: 24,
+                  color: Colors.black,
                 ),
               ),
-              SizedBox(
-                width: 8,
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage(
+                    "assets/travel/Tourism/malecostume-512.webp"),
+                width: 50,
+                height: 50,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image(
-                  image: NetworkImage(
-                      "https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png"),
-                  width: 50,
-                  height: 50,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
         // استخدام TextField كبديل لشريط البحث
         Container(
