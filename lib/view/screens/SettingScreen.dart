@@ -10,7 +10,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>TravelCubit(),
+      create: (BuildContext context) => TravelCubit(),
       child: BlocConsumer<TravelCubit, TravelState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -49,16 +49,28 @@ class SettingScreen extends StatelessWidget {
                   },
                 ),
                 Divider(),
-                IconButton(
-                  onPressed: () {
-                    TravelCubit.get(context).changeAppMode();
-                  },
-                  icon: Icon(
-                    Icons.dark_mode_outlined,
-                    color: Theme.of(context).iconTheme.color,
+                Padding(
+                  padding: EdgeInsets.only(right: 0, left: 0),
+                  child: ListTile(
+                    leading: IconButton(
+                      onPressed: () {
+                        TravelCubit.get(context).changeAppMode();
+                      },
+                      icon: Icon(
+                        Icons.dark_mode_outlined,
+                        size: 32,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                    ),
+                    title: Text(
+                      "Dark Mode ",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 22),
+                    onTap: () {},
                   ),
                 ),
-
                 Divider(),
                 _buildSettingsOption(
                   context,
@@ -103,12 +115,12 @@ class SettingScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-        leading: Icon(icon, size: 28),
+        leading: Icon(icon, size: 32),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 20),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 22),
         onTap: onPressed,
       ),
     );

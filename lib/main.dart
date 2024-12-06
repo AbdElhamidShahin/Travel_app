@@ -1,6 +1,5 @@
 import 'package:Tourism_app/firebase_options.dart';
 import 'package:Tourism_app/model/cubit/states.dart';
-import 'package:Tourism_app/view/Login/LoginScreen.dart';
 import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => TravelCubit()..changeAppMode(),
-      child: BlocConsumer<TravelCubit,TravelState>(
+      child: BlocConsumer<TravelCubit, TravelState>(
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -95,7 +94,6 @@ class MyApp extends StatelessWidget {
               ),
               darkTheme: ThemeData(
                 brightness: Brightness.dark,
-
                 scaffoldBackgroundColor:
                     Color(0xFF1E201E) // RGB(30, 32, 30) in hex
                 ,
@@ -152,6 +150,7 @@ class MyApp extends StatelessWidget {
                 elevatedButtonTheme: ElevatedButtonThemeData(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
+                    backgroundColor: Colors.white
                   ),
                 ),
                 floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -162,6 +161,7 @@ class MyApp extends StatelessWidget {
                   iconColor: Colors.white, //
                   textColor: Colors.white, //
                 ),
+
                 dialogTheme: DialogTheme(
                   backgroundColor: Colors.grey[850],
                   titleTextStyle: TextStyle(color: Colors.white), //
@@ -169,9 +169,10 @@ class MyApp extends StatelessWidget {
                 ),
                 useMaterial3: true,
               ),
-              themeMode: TravelCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-
-              home: Loginscreen(),
+              themeMode: TravelCubit.get(context).isDark
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              home: HomePage(),
             );
           },
           listener: (context, state) {}),

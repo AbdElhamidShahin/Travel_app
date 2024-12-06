@@ -69,26 +69,25 @@ class CustomDetails extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.black26,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                              child:GestureDetector(
-                                onTap: (){
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
+                      GestureDetector(onTap: (){
+                        Navigator.pop(context);
+                      },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Center(
+                                child:Icon(
                                       Icons.arrow_back_ios_new_rounded,
                                       size: 18,
                                       color: Colors.white,
-                                    ),
-                              )),
+                                    )),
+                          ),
                         ),
                       ),
                       Spacer(),

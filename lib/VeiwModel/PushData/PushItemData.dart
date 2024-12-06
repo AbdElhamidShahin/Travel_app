@@ -20,6 +20,7 @@ class PushItemData extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // عرض واجهة التحميل أثناء الانتظار
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: 5, // عدد العناصر الهيكلية
             itemBuilder: (context, index) {

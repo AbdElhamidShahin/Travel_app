@@ -39,7 +39,7 @@ class _TabBarPageState extends State<TabBarPage>
               child: FutureBuilder<List<Travel>>(
                 future: Future.delayed(
                   const Duration(seconds: 2),
-                      () => fetchTravelFromJson(
+                  () => fetchTravelFromJson(
                       context, widget.category ?? "Tour_Package"),
                 ),
                 builder: (context, snapshot) {
@@ -47,15 +47,19 @@ class _TabBarPageState extends State<TabBarPage>
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 8, // عدد العناصر الهيكلية
+                      itemCount: 8,
                       itemBuilder: (context, index) {
                         return Shimmer.fromColors(
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),  height: 160, // تخصيص الحجم
+                              margin: const EdgeInsets.symmetric(vertical: 8),
                             ),
                           ),
                         );
