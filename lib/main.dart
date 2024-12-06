@@ -1,5 +1,6 @@
 import 'package:Tourism_app/firebase_options.dart';
 import 'package:Tourism_app/model/cubit/states.dart';
+import 'package:Tourism_app/view/Login/LoginScreen.dart';
 import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -170,7 +171,7 @@ class MyApp extends StatelessWidget {
               ),
               themeMode: TravelCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
 
-              home: const HomePage(),
+              home: Loginscreen(),
             );
           },
           listener: (context, state) {}),

@@ -1,4 +1,4 @@
-import 'package:Tourism_app/view/Login/RegisterScreen.dart';
+import 'package:Tourism_app/view/Login/LoginScreen.dart';
 import 'package:Tourism_app/view/screens/HomePage.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../Wedget/CustomTextFeild.dart';
 import '../Wedget/Custom_button.dart';
 
-class Loginscreen extends StatelessWidget {
+class Registerscreen extends StatelessWidget {
   String? email, password;
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,20 @@ class Loginscreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       Customtextfeild(
                         validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the password';
+                          } else if (value.length < 3) {
+                            return 'Must be at least 6 chars';
+                          }
+
+                          return null;
+                        },
+                        hintText: 'Name',
+                        lableText: 'Name',
+                        onChanged: (data) => email = data,
+                      ),
+                      Customtextfeild(
+                        validator: (value) {
                           if (RegExp(emailRegex).hasMatch(value!)) {
                           } else if (value.isEmpty) {
                             return "@gmail.com";
@@ -70,7 +84,7 @@ class Loginscreen extends StatelessWidget {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter the password';
-                          } else if (value.length > 8) {
+                          } else if (value.length < 6) {
                             return 'Must be at least 6 chars';
                           }
 
@@ -94,25 +108,28 @@ class Loginscreen extends StatelessWidget {
                         width: 300,
                         height: 55,
                         child: CustomButton(
-                          text: 'Login',
+                          text: 'Sign up',
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
                               try {
                                 final credential = await FirebaseAuth.instance
-                                    .createUserWithEmailAndPassword(
+                                    .signInWithEmailAndPassword(
                                   email: email!,
                                   password: password!,
                                 );
 
-                                showCustomSnackbar(context, ContentType.success,
-                                    'Success', 'Hey, you');
+                                showCustomSnackbar(
+                                    context,
+                                    ContentType.success,
+                                    'Registration successful',
+                                    'Redirecting now');
 
                                 await Future.delayed(Duration(seconds: 2));
 
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HomePage(),
+                                    builder: (context) => Loginscreen(),
                                   ),
                                 );
                               } on FirebaseAuthException catch (e) {
@@ -137,22 +154,25 @@ class Loginscreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                       Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'It\'s your first time here?',
                             style: TextStyle(color: Colors.white),
                           ),
-
-                          TextButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Registerscreen()));
-
-                          }, child: Text(
-                            'Sign up',
-                            style: TextStyle(color: Colors.amber),
-                          ),)
-
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Loginscreen()));
+                            },
+                            child: Text(
+                              'Login',
+                              style: TextStyle(color: Colors.amber),
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(height: 30),
@@ -167,7 +187,8 @@ class Loginscreen extends StatelessWidget {
     );
   }
 
-  void showCustomSnackbar(BuildContext context, ContentType messageType, String title, String message) {
+  void showCustomSnackbar(BuildContext context, ContentType messageType,
+      String title, String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -182,9 +203,12 @@ class Loginscreen extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                   decoration: BoxDecoration(
-                    color: messageType == ContentType.success ? Colors.green : Colors.red,
+                    color: messageType == ContentType.success
+                        ? Colors.green
+                        : Colors.red,
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
@@ -198,7 +222,9 @@ class Loginscreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        messageType == ContentType.success ? Icons.check : Icons.error,
+                        messageType == ContentType.success
+                            ? Icons.check
+                            : Icons.error,
                         color: Colors.white,
                         size: 24,
                       ),
@@ -206,14 +232,18 @@ class Loginscreen extends StatelessWidget {
                       Expanded(
                         child: Text(
                           message,
-                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       IconButton(
                         icon: Icon(Icons.close, color: Colors.white),
                         onPressed: () {
-                          Navigator.pop(context); // إغلاق الرسالة عند الضغط على زر الإغلاق
+                          Navigator.pop(
+                              context); // إغلاق الرسالة عند الضغط على زر الإغلاق
                         },
                       ),
                     ],
@@ -226,5 +256,4 @@ class Loginscreen extends StatelessWidget {
       },
     );
   }
-
 }

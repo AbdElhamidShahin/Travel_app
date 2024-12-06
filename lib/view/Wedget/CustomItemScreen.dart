@@ -81,7 +81,8 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                   children: [
                     Text(
                       widget.travel?.name.substring(3) ?? 'No Name',
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                      style: TextStyle(color: Colors.black, fontSize: 18,
+                      fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 8),
                      Row(
