@@ -18,7 +18,6 @@ class Search extends StatelessWidget {
             child: TextFormField(
               controller: searchController,
               onChanged: (value) {
-                // استدعاء دالة البحث عند تغيير القيمة
                 TravelCubit.get(context).getSearch(value);
               },
               style: const TextStyle(color: Colors.black),
@@ -44,8 +43,7 @@ class Search extends StatelessWidget {
           Flexible(
             child: BlocConsumer<TravelCubit, TravelState>(
               listener: (BuildContext context, TravelState state) {
-                if (state is TravelGetSearchLodingState) {
-                }
+                if (state is TravelGetSearchLodingState) {}
               },
               builder: (BuildContext context, TravelState state) {
                 var list = TravelCubit.get(context).searchResults;

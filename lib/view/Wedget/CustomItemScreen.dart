@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/articalmodel.dart';
@@ -79,13 +80,19 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.travel?.name.substring(3) ?? 'No Name',
-                      style: TextStyle(color: Colors.black, fontSize: 18,
-                      fontWeight: FontWeight.w500),
+                    AutoSizeText(
+                      widget.travel?.name ?? 'No Name',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22, // الحجم الأساسي للنص
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 1, // النص سيكون في سطر واحد فقط
+                      minFontSize: 12, // الحجم الأدنى للنص عند الحاجة
+                      stepGranularity: 3, // تغيير الحجم بشكل تدريجي
                     ),
                     SizedBox(height: 8),
-                     Row(
+                    Row(
                       children: [
                         Text(
                           "Starting from ",
@@ -98,7 +105,7 @@ class _CustomitemscreenState extends State<Customitemscreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                     Row(
+                    Row(
                       children: [
                         Icon(Icons.location_on_outlined),
                         Text(

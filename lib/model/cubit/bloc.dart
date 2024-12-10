@@ -96,6 +96,6 @@ class TravelCubit extends Cubit<TravelState> {
 
   void changeAppMode() {
     isDark = !isDark;
-    emit(AppChangeModeState(isDark)); // تمرير isDark مع الحالة
+    emit(AppChangeModeState(isDark));
   }
 }

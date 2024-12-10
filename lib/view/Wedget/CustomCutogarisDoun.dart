@@ -1,7 +1,6 @@
 import 'package:Tourism_app/view/Wedget/CustomDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../model/articalmodel.dart';
 import '../../model/itemProvider.dart';
 import 'CustomItemScreen.dart';

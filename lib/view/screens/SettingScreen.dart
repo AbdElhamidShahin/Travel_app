@@ -51,7 +51,7 @@ class SettingScreen extends StatelessWidget {
                 Divider(),
                 Padding(
                   padding: EdgeInsets.only(right: 0, left: 0),
-                  child: ListTile(
+                  child:ListTile(
                     leading: IconButton(
                       onPressed: () {
                         TravelCubit.get(context).changeAppMode();
@@ -63,13 +63,16 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      "Dark Mode ",
+                      "Dark Mode",
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 22),
                     onTap: () {},
                   ),
+
                 ),
                 Divider(),
                 _buildSettingsOption(

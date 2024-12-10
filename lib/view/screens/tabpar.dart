@@ -53,12 +53,14 @@ class _TabBarPageState extends State<TabBarPage>
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(12),
-                              ),  height: 160, // تخصيص الحجم
+                              ),
+                              height: 160, // تخصيص الحجم
                               margin: const EdgeInsets.symmetric(vertical: 8),
                             ),
                           ),
