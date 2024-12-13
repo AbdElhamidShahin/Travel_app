@@ -14,6 +14,8 @@ class SettingScreen extends StatelessWidget {
       child: BlocConsumer<TravelCubit, TravelState>(
         listener: (context, state) {},
         builder: (context, state) {
+          var cubit = TravelCubit.get(context);
+
           return Scaffold(
             appBar: AppBar(
               title: Center(
@@ -48,13 +50,20 @@ class SettingScreen extends StatelessWidget {
                         "https://play.google.com/store/apps/details?id=com.lilithgame.roc.gp&pcampaignid=merch_published_cluster_promotion_battlestar_browse_all_games");
                   },
                 ),
+                IconButton(
+                  onPressed: () {
+                    TravelCubit.get(context).changeAppMode();
+                  },
+                  icon: const Icon(Icons.dark_mode_outlined),
+                ),
+
                 Divider(),
                 Padding(
                   padding: EdgeInsets.only(right: 0, left: 0),
-                  child:ListTile(
+                  child: ListTile(
                     leading: IconButton(
                       onPressed: () {
-                        TravelCubit.get(context).changeAppMode();
+                        cubit.changeAppMode();
                       },
                       icon: Icon(
                         Icons.dark_mode_outlined,
@@ -72,7 +81,6 @@ class SettingScreen extends StatelessWidget {
                     trailing: const Icon(Icons.arrow_forward_ios, size: 22),
                     onTap: () {},
                   ),
-
                 ),
                 Divider(),
                 _buildSettingsOption(

@@ -48,7 +48,7 @@ class Registerscreen extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 45),
                       ),
                       const Text(
-                        'Time to cook, let\'s Login',
+                        'Time to cook, let\'s SignIn',
                         style: TextStyle(color: Colors.grey, fontSize: 18),
                       ),
                       const SizedBox(height: 20),

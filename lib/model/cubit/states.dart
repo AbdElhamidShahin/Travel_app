@@ -17,6 +17,8 @@ class TravelGetDataErrorState extends TravelState {
 }
 
 class TravelGetSearchLodingState extends TravelState {}
+class TravelGetSearchEmptyState extends TravelState {}
+
 
 class TravelGetSearchSuccessState extends TravelState {}
 

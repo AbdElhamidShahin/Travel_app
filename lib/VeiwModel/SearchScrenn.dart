@@ -16,11 +16,15 @@ class Search extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextFormField(
-              controller: searchController,
               onChanged: (value) {
-                TravelCubit.get(context).getSearch(value);
+                if (value.trim().isNotEmpty) {
+                  TravelCubit.get(context).getSearch(value);
+                }
               },
-              style: const TextStyle(color: Colors.black),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.grey[200],
@@ -36,14 +40,20 @@ class Search extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               ),
             ),
           ),
           Flexible(
             child: BlocConsumer<TravelCubit, TravelState>(
               listener: (BuildContext context, TravelState state) {
-                if (state is TravelGetSearchLodingState) {}
+                if (state is TravelErrorState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Error: ${state.error}'),
+                    ),
+                  );
+                }
               },
               builder: (BuildContext context, TravelState state) {
                 var list = TravelCubit.get(context).searchResults;
@@ -53,11 +63,16 @@ class Search extends StatelessWidget {
                 }
 
                 if (list.isEmpty) {
-                  return const Center(
-                    child: Text(
-                      "No results found",
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.search_off, size: 80, color: Colors.grey),
+                      const SizedBox(height: 16),
+                      const Text(
+                        "No results found. Try another search.",
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                    ],
                   );
                 }
 

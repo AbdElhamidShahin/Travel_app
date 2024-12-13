@@ -61,33 +61,33 @@ class TravelCubit extends Cubit<TravelState> {
       emit(TravelErrorState(error: 'Error loading data'));
     }
   }
-
   void getSearch(String value) {
     emit(TravelGetSearchLodingState());
 
-    if (value.isEmpty) {
-      // إذا كانت القيمة المدخلة فارغة، نعرض جميع الأماكن
-      searchResults = List.from(naturalPlaces);
-      emit(TravelGetSearchSuccessState());
+    if (value.trim().isEmpty) {
+      searchResults = [];
+      emit(TravelGetSearchEmptyState());
       return;
     }
 
     try {
       searchResults = naturalPlaces.where((place) {
+        if (place.name == null) return false; // تجاهل العناصر غير الصالحة
         final name = place.name.toLowerCase();
-        final description = place.description.toLowerCase();
-        final location = place.address.toLowerCase(); // مثال لخاصية إضافية
-        return name.contains(value.toLowerCase()) ||
-            description.contains(value.toLowerCase()) ||
-            location.contains(value.toLowerCase());
+        final searchValue = value.toLowerCase();
+
+        print('Searching for: $searchValue in $name');
+        return name.contains(searchValue);
       }).toList();
 
       if (searchResults.isEmpty) {
-        emit(TravelGetSearchLodingState());
+        print('No matches found for: $value');
+        emit(TravelGetSearchEmptyState());
       } else {
         emit(TravelGetSearchSuccessState());
       }
     } catch (error) {
+      print('Error during search: $error');
       emit(TravelGetDataErrorState(error.toString()));
     }
   }
@@ -96,6 +96,8 @@ class TravelCubit extends Cubit<TravelState> {
 
   void changeAppMode() {
     isDark = !isDark;
+    print("Mode changed: $isDark");
     emit(AppChangeModeState(isDark));
   }
+
 }
